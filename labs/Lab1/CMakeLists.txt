@@ -1,4 +1,4 @@
-
+cmake_minimum_required(VERSION 3.3)
 project(Lab1 C CXX)
 
 enable_language(ASM_NASM)
