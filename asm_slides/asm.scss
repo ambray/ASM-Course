@@ -1,0 +1,15 @@
+@import "bourbon/bourbon";
+
+.split-table td {
+	padding: 10px;
+	@include border-top-radius(5px);
+	@include border-bottom-radius(5px);
+	@include border-left-radius(5px);
+	@include border-right-radius(5px);
+	@include border-style(solid);
+} 	
+
+body {
+	@include background(linear-gradient(#f0e6c7, #f0e6c7) left repeat);
+	font-size: modular-scale(2);
+}
