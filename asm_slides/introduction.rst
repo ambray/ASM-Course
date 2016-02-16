@@ -259,6 +259,22 @@ Basic Use
 
 ----
 
+
+Debugging
+=========
+
+* Debugger Cheat Sheet
+
+.. code:: nasm
+
+  int3 ; breakpoint
+
+.. note::
+
+  Tips for debugging assembly: keep an eye on registers, use breakpoints liberally!
+
+----
+
 :data-rotate-y: 180
 
 Lab 1
@@ -268,5 +284,55 @@ Using mov, lea, and xchg
 
 ----
 
-Debugging
-=========
+x86(_64) data sizes
+===================
+
+* byte - "smallest" addressable unit
+* word - two bytes
+* dword - double word (4 bytes - pointer width on x86)
+* qword - quad word (8 bytes - pointer width on x64)
+
+----
+
+Sub Registers
+=============
+
+* graphic
+
+----
+
+Memory/Register Access - mov
+============================
+
+* When accessing memory, amount of data to copy can be specified
+
+.. code:: nasm
+
+	mov al, byte [rsi] ; copy a single byte
+	mov eax, dword [rcx] ; copy a dword (4 bytes)
+	mov rax, qword [rsi] ; copy a qword (8 bytes)
+
+----
+
+Register Access - movzx
+=======================
+
+Description
+-----------
+
+Move with zero extend. When moving data into the lower part of register, it will
+zero out the remaining bits.
+
+Basic Use
+---------
+
+.. code:: nasm
+
+	movzx al, 0x01 ; ah is now 0
+
+----
+
+Lab 2
+=====
+
+Using subregisters, accessing smaller values, and zero extending.
