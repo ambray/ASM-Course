@@ -189,7 +189,7 @@ First, we'll store a pointer (memory address) in rax, and then store some stuff 
 
 .. code:: nasm
 
-	mov rax, 0xc0ffee ; a memory address (hopefully in our process space!)
+	mov rax, 0xc0ffee ; a memory address (hopefully valid!)
 	mov [rax], 100 ; now we store some data there!
 
 .. image:: images/section_1_pointers.jpg
