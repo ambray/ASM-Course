@@ -1,7 +1,10 @@
 bits 64
 
-extern _value;
-global _first_func, _second_func, _third_func, _fourth_func
+extern _value
+extern _buf
+extern _val1
+extern _val2
+global _first_func, _second_func, _third_func, _fourth_func, _fifth_func, _sixth_func
 
 _first_func:
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -74,3 +77,46 @@ _fourth_func:
 ;  END student code
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
   ret
+
+_fifth_func:
+  mov rcx, _buf
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; For this lab, you will need
+; to use LEA to calculate the
+; next address in a list of 8 byte
+; elements, and then copy the value
+; stored at that address into
+; RAX.
+; There is a a pointer to the
+; beginning of the list stored
+; in RCX.
+;
+;  BEGIN student code
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;  END student code
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  ret
+
+_sixth_func:
+  mov rcx, _val1
+  mov rdx, _val2
+  xor rax, rax
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; For this lab, you will need to
+; use XCHG to swap two values
+; stored in addresses in memory.
+; The first value is pointer to
+; by RCX, and the second by RDX.
+; HINT: Two XCHGs may be required.
+;
+;  BEGIN student code
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;  END student code
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  ret
+
+

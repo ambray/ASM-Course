@@ -182,6 +182,14 @@ x64 Registers
 
 :data-x: r2000
 
+Register Data and Pointers
+==========================
+
+* Registers can contain up to pointer-sized amounts of data (4 bytes on 32 bit, 8 on 64)
+* Registers can also contain memory addresses (pointers) to blocks of data residing elsewhere in the process.
+
+----
+
 Memory Access - mov
 ===================
 
@@ -195,10 +203,10 @@ Basic Use
 
 .. code:: nasm
 
-	mov eax, 0x01      ; immediate - eax is now 1
-	mov eax, ecx       ; register - eax now has a copy of ecx
-	mov eax, [ebx]     ; memory - ebx is treated as a pointer
-    mov eax, dword [ebx + 4] ; copying a double word (4 bytes)
+	mov rax, 0x01      ; immediate - rax is now 1
+	mov rax, rcx       ; register - rax now has a copy of ecx
+	mov rax, [rbx]     ; memory - rbx is treated as a pointer
+    mov rax, qword [rbx + 8] ; copying a quad word (8 bytes)
 
 .. note::
 
@@ -217,6 +225,17 @@ Calculates an address, but does not actually attempt to access it.
 Basic Use
 ---------
 
+.. code:: nasm
+
+    ; calculate an address by taking the address
+    ; of what RDX points at,
+    ; and adding 8 bytes to it (perhaps indexing
+    ; into an array). Note that we are just calc-
+    ; ulating the address, NOT accessing memory.
+	lea rax, [rdx + 8]
+	mov rax, [rax]     ; actually accessing the memory
+
+
 ----
 
 :data-y: r2000
@@ -227,8 +246,16 @@ Memory Access - xchg
 Description
 -----------
 
+Exchanges the values provided atomically (more on this later).
+
 Basic Use
 ---------
+
+.. code:: nasm
+
+	xchg rax, rcx   ; exchange two register values
+	xchg rax, [rcx] ; exchange a register value with a value stored in memory
+
 
 ----
 
