@@ -312,6 +312,13 @@ Memory/Register Access - mov
 	mov eax, dword [rcx] ; copy a dword (4 bytes)
 	mov rax, qword [rsi] ; copy a qword (8 bytes)
 
+* Also, data can be copied from subregister to subregister
+
+.. code:: nasm
+
+	mov al, cl  ; copy from cl to al
+	xchg al, ah ; exchange the low and high bytes in ax
+
 ----
 
 Register Access - movzx
@@ -320,7 +327,7 @@ Register Access - movzx
 Description
 -----------
 
-Move with zero extend. When moving data into the lower part of register, it will
+Move with zero extend. When moving data that is smaller than the destination size,
 zero out the remaining bits.
 
 Basic Use
@@ -328,7 +335,8 @@ Basic Use
 
 .. code:: nasm
 
-	movzx al, 0x01 ; ah is now 0
+	movzx rax, cl ; everything above al is now set to 0
+	movzx rax, byte [rsi + 5]
 
 ----
 
