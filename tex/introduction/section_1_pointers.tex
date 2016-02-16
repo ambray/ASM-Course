@@ -1,0 +1,21 @@
+\documentclass{standalone}
+\usepackage{tikz}
+\usetikzlibrary{positioning}
+
+\begin{document}
+\begin{tikzpicture}[
+	n_st/.style={
+		rectangle,
+		minimum size=8mm,
+		very thick,
+		draw=red!50!black!50,
+		top color=white,
+		bottom color=red!50!black!20,
+		rounded corners=3mm,
+		}]
+
+	\node(reg)[n_st][label=rax]{0xc0ffee};
+	\node(mem)[n_st,right=of reg][label=0xc0ffee]{100};
+	\path (reg) edge[->] (mem);
+\end{tikzpicture}
+\end{document}

@@ -148,16 +148,7 @@ General Purpose Registers
 x86 and x64 Registers
 =====================
 
-========  ========  ========  ======
-64 bit,   32 bit,   16 bit,   8 bit
-========  ========  ========  ======
-rax       eax       ax        ah/al
-rcx       ecx       cx        ch/cl
-rbx       ebx       bx        bh/bl
-rdx       edx       dx        dh/dl
-rdi       edi       N/A       N/A
-rsi       esi       N/A       N/A
-========  ========  ========  ======
+.. image:: images/section_1_register_table.jpg
 
 * rbp/ebp - Base Pointer
 * rsp/esp - Stack Pointer
@@ -187,6 +178,53 @@ Register Data and Pointers
 
 * Registers can contain up to pointer-sized amounts of data (4 bytes on 32 bit, 8 on 64)
 * Registers can also contain memory addresses (pointers) to blocks of data residing elsewhere in the process.
+
+----
+
+Register Data and Pointers - Example
+====================================
+
+First, we'll store a pointer (memory address) in rax, and then store some stuff there:
+--------------------------------------------------------------------------------------
+
+.. code:: nasm
+
+	mov rax, 0xc0ffee ; a memory address (hopefully in our process space!)
+	mov [rax], 100 ; now we store some data there!
+
+.. image:: images/section_1_pointers.jpg
+
+----
+
+Register Data and Pointers - Example (Part 2!)
+==============================================
+
+Now, we'll copy that address into rcx:
+--------------------------------------
+
+.. code:: nasm
+
+	mov rcx, rax ; now we copy the pointer!
+
+.. image:: images/section_1_pointers_second_stage.jpg
+
+* Now both point to the same place!
+
+----
+
+Register Data and Pointers - Example (Part 3)
+=============================================
+
+Now, we'll access the data stored at the address, and copy it into rcx 
+----------------------------------------------------------------------
+
+.. code:: nasm
+	
+	mov rcx, [rcx] ; copy the data from location 0xc0ffee into rcx
+
+.. image:: images/section_1_pointers_third_stage.jpg	
+
+Please note that this replaces the old value in rcx, which was just the address we're accessing.
 
 ----
 
@@ -297,7 +335,10 @@ x86(_64) data sizes
 Sub Registers
 =============
 
-* graphic
+.. image:: images/section_1_register_table.jpg
+
+* Subregisters are still part of the bigger "parent" register
+* Unless special instructions (not yet mentioned) are used, will NOT modify data in the other portions of the register.
 
 ----
 
