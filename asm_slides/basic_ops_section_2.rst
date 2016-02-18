@@ -80,3 +80,56 @@ Results are stored in the source (possible), or in a combination of registers in
 
 The div instruction
 ===================
+
+Description
+-----------
+
+As with mul, div takes a single argument, and divides the value stored in the dividend register(s) by it. This is typically ax/eax/rax (and the *dx equivalents), but may vary a bit depending on the size (chart provided on the next slide).
+
+Basic Use
+---------
+
+.. code:: nasm
+
+	mov rdx, 0 ; there's a better way to do this, but we haven't learned it yet!
+	mov rax, 2
+	div 10 	   ; rax now contains 5
+
+----
+
+div: operation results
+======================
+
+Where to retrieve the results of a div from depends on the size of the arguments. The table below illustrates this relationship:
+
+.. image:: images/section_2_div_table.jpg
+
+
+----
+
+
+inc and dec
+===========
+
+Description
+-----------
+
+Adds or subtracts one from the provided register, storing the result in place.
+
+Basic Use
+---------
+
+.. code:: nasm
+
+	mov rax, 1 	; rax now contains 1
+	inc rax		; rax now contains 2
+	inc rax		; rax now contains 3
+	dec rax		; rax now contains 2
+
+----
+
+
+Lab 3
+=====
+
+Arithmetic Operations
