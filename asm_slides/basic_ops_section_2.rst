@@ -56,8 +56,9 @@ Basic Use
 
 .. code:: nasm
 
-	mov rax, 10
-	mul 10 		; rax now contains 100
+	mov eax, 10
+	mov ecx, 10
+	mul ecx 	; rax now contains 100
 
 	mov rax, 5
 	mov rcx, 7
@@ -91,9 +92,11 @@ Basic Use
 
 .. code:: nasm
 
+	; clearing the high bits, we're only using what's in rax!
 	mov rdx, 0 ; there's a better way to do this, but we haven't learned it yet!
 	mov rax, 2
-	div 10 	   ; rax now contains 5
+	mov rcx, 10
+	div rcx    ; rax now contains 5
 
 ----
 
