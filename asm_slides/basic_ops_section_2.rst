@@ -85,7 +85,7 @@ The div instruction
 Description
 -----------
 
-As with mul, div takes a single argument, and divides the value stored in the dividend register(s) by it. This is typically ax/eax/rax (and the *dx equivalents), but may vary a bit depending on the size (chart provided on the next slide).
+As with mul, div takes a single argument, and divides the value stored in the dividend register(s) by it. This is typically ax/eax/rax (and the \*dx equivalents), but may vary a bit depending on the size (chart provided on the next slide).
 
 Basic Use
 ---------
@@ -136,3 +136,27 @@ Lab 3
 =====
 
 Arithmetic Operations
+
+----
+
+The Stack
+=========
+
+* Grows from high memory to low memory
+* Current function typically exists within a stack "frame" (but not always!)
+
+----
+
+Stack Frames
+============
+
+* RSP (or ESP) points to the top of the stack
+* RBP (or EBP) points to the "base" of the stack frame
+
+----
+
+FPO 
+===
+
+(Frame Pointer Omission (or Optimization))
+
