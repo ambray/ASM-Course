@@ -155,8 +155,81 @@ Stack Frames
 
 ----
 
-FPO 
-===
+Stack Frame Layout
+==================
 
-(Frame Pointer Omission (or Optimization))
+.. image:: images/section_2_stack_diagram_1.jpg
+
+----
+
+Expanding the Stack Frame
+=========================
+
+* Can modify the value of RSP directly to allocate more stack space:
+
+.. code:: nasm
+
+	sub rsp, 16
+
+* But you must always ensure you clean up before the function returns:
+
+.. code:: nasm
+
+	add rsp, 16
+
+----
+
+Stack Alignment
+===============
+
+* x86_64 expects 16 byte stack alignment
+* Allocating odd amounts of space can cause things to break
+* ALWAYS make sure you clean up your stack before returning
+
+----
+
+New Instructions: push and pop
+==============================
+
+Description
+-----------
+
+Push will subtract a pointer-width amount of space from RSP, and place the argument in the newly-allocated location.
+Pop performs the opposite action, storing the value just below RSP in the register provided, and adding a pointer-width amount to RSP.
+For every push, you will need to pop!
+
+Basic Use
+---------
+
+.. code:: nasm
+
+	mov rax, 1		; 1 is now stored in rax.
+	push rax		; 1 is now stored at the top of the stack
+	pop rcx			; rcx now contains 1
+
+----
+
+Growing the Stack
+=================
+
+After a push operation:
+
+.. image:: images/section_2_stack_diagram_2.jpg
+
+----
+
+Restoring the Stack
+===================
+
+After a pop operation:
+
+.. image:: images/section_2_stack_diagram_3.jpg
+
+----
+
+Lab 4
+=====
+
+Stack Operations
+
 
