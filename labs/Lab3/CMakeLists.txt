@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.3)
-project(Lab3 C CXX)
+project(Lab3 C CXX ASM)
 
 enable_language(ASM_NASM)
 file(GLOB LAB_ASM_FILES "*.nasm")
