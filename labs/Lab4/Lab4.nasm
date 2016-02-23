@@ -1,34 +1,51 @@
 bits 64
 
-extern _buf
-global _first_func
+extern _value
+global _first_func, _second_func
 
 _first_func:
     push rbp
     mov rbp, rsp
-    xor rax, rax
-    mov al, 0x41
-    mov rcx, 0x20
-    push rdi
-    lea rdi, [rbp + 8]
+    mov rcx, 0x10
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;  For this task, you must allocate
-;  32 bytes of space on the stack.
+;  8 bytes of space on the stack, and
+;  store the value of rcx there.
 ;
 ;  BEGIN student code
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-    sub rsp, 0x20
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;  END student code
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-    rep stosb
-    push rsi
-    mov rsi, rdi
-    mov rdi, _buf
-    mov rcx, 0x20
-    rep movsb
-    pop rsi
-    add rsp, 0x20
-    pop rdi
+    pop rax
+    pop rbp
+    ret
+
+_second_func
+    push rbp
+    mov rbp, rsp
+    mov rcx, _value
+    mov rax, 1
+    mov rdx, 2
+    mov rsi, 3
+    mov rdi, 4
+    mov r8, 5
+    mov r9, 6
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;  For this task, you must allocate
+;  manage your registers by saving them
+;  to the stack as needed. Divide the
+;  number stored where rcx points by 10,
+;  and place the value back at that address.
+;  Make sure all the register values are the
+;  same at the end of the call!
+;
+;  BEGIN student code
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;  END student code
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
     pop rbp
     ret
