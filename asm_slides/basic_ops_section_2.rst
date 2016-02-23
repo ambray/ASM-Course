@@ -232,4 +232,14 @@ Lab 4
 
 Stack Operations
 
+----
 
+Negative Numbers
+================
+
+* Negative numbers on the x86(_64) platform are represented via Two's Complement
+
+----
+
+Two's Complement
+================
