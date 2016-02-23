@@ -237,9 +237,24 @@ Stack Operations
 Negative Numbers
 ================
 
+Two's Complement
+----------------
+
+.. image:: images/section_2_counter.jpeg
+
 * Negative numbers on the x86(_64) platform are represented via Two's Complement
+
+.. note::
+
+	On understanding Two's Complement: think of what happens when a mechanical counter (like the one pictured on the slide) counts down to zero,
+	and rolls over. You might see it flip all the numbers over: e.g., 9999
 
 ----
 
 Two's Complement
 ================
+
+* Invert the bits of the number (in binary), and add one!
+
+.. image:: images/section_2_twos_complement_p1.jpg
+

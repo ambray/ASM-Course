@@ -13,17 +13,17 @@
 	}]
 
 \node[tab_style](tbl) {
-\begin{tabularx}{.6\textwidth}{cXrcc}
+\begin{tabularx}{.8\textwidth}{cXrcc}
 \arrayrulecolor{purple}
-\textbf{Decimal} & \textbf{Positive (bin)} & \textbf{Negative (binary)}\\
+\textbf{Maximum} & \textbf{Dividend} & \textbf{Quotient} & \textbf{Remainder} \\
 \toprule
-1 & 0001 & 1111 \\
+byte/word & ax & al & ah \\
 \midrule
-2 & 0010 & 1110 \\
+word/dword & dx:ax & ax & dx \\
 \midrule
-3 & 0011 & 1101 \\
+dword/qword & edx:eax & eax & edx \\
 \midrule
-4 & 0100 & 1100
+dqword/qword & rdx:rax & rax & rdx 
 \end{tabularx}
 };
 
