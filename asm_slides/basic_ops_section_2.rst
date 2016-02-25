@@ -401,22 +401,69 @@ Or Table
 Binary not
 ==========
 
+* Inverts the bits in a given register
+
+Example:
+
+.. code:: nasm
+
+	mov rax, 0		; rax now contains 00000000
+	not rax			; rax is now all 1's (or 0xffffffff)
+
+Similarly:
+
+.. code:: nasm
+
+	mov rcx, 1		; rcx now contains 1
+	not rcx			; rcx now contains: 
+				; 0xfffffffe (all 1's except for the first bit) 
+
 ----
 
 Properties of eXclusive Or
 ==========================
+
+* XOR yields 1 only if the bit is set in either the source or destination, but NOT both
+* Any value XOR'd with itself is 0.
+* 0 XOR'd with any value is that value
+* For numbers A, B, and C, if A ^ B = C, then C ^ A = B 
+  and C ^ B = A.
 
 ----
 
 XOR table
 =========
 
+.. image:: images/section_2_bitops_xor.jpg
+
 ----
 
 Rotating Bits
 =============
 
+* The values in the register are rotated the indicated number of places to the right or left
+* Bits that are rotated off the end of the register and moved back to the beginning
+
+Instruction:
+
+.. code:: nasm
+
+	mov rax, 1	; rax contains 1 (00000001)
+	rol rax, 1  ; rax now contains 2 (00000010)
+	ror rax, 1 	; rax now contains 1 (00000001)
+	ror rax, 1	; rax now looks like: (10000000)
+
 ----
 
 Signed Bit Operations
 =====================
+
+* Shift operations that are sign aware exist (SAR for right and SAL for left)
+* Work in the same fashion as shr/shl, except for how bits shifted off the end are treated (bits still disappear, but the sign of the resulting value is retained)
+
+----
+
+Lab 5
+=====
+
+Bit operations
