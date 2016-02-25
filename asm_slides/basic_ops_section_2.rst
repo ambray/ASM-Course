@@ -139,6 +139,8 @@ Arithmetic Operations
 
 ----
 
+:data-rotate: 90
+
 The Stack
 =========
 
@@ -146,6 +148,10 @@ The Stack
 * Current function typically exists within a stack "frame" (but not always!)
 
 ----
+
+:data-x: r0
+:data-y: r2000
+:data-rotate-y: 0
 
 Stack Frames
 ============
@@ -218,6 +224,10 @@ After a push operation:
 
 ----
 
+:data-x: r0
+:data-y: r0
+:data-rotate-y: 90
+
 Restoring the Stack
 ===================
 
@@ -227,12 +237,18 @@ After a pop operation:
 
 ----
 
+:data-y: r2000
+
 Lab 4
 =====
 
 Stack Operations
 
 ----
+
+:data-rotate-y: 0
+:data-y: r100
+:data-x: r-1000
 
 Negative Numbers
 ================
@@ -251,6 +267,9 @@ Two's Complement
 
 ----
 
+:data-rotate-z: 0
+:data-y: r100
+
 Two's Complement
 ================
 
@@ -258,3 +277,146 @@ Two's Complement
 
 .. image:: images/section_2_twos_complement_p1.jpg
 
+----
+
+:data-x: r2000
+
+
+Sub Registers and Sign extending
+================================
+
+* When copying smaller data into a register, sign extending may be used (rather than zero extending)
+* Sign extending preserves the "signed" attributes of the data being copied.
+* The movsx instruction (just like movzx) handles this.
+
+----
+
+The movsx Instruction
+=====================
+
+Description
+-----------
+
+Much like movzx, movsx can be used to move data into a portion of a larger register, while preserving its sign.
+
+Basic Use
+---------
+
+.. code:: nasm
+
+	mov cl, -1
+	movsx rax, cl 	; rax now contains -1.
+
+----
+
+:data-y: 0
+
+Bitwise Operations
+==================
+
+
+----
+
+Bit shifting
+============
+
+* Two unsigned shift operations exist: shl (shift left) and shr (shift right)
+* Shifting moves the bits in the register over the direction (left or right) and number of bits specified
+* Bits that fall off the end (and overflow) will disappear, except for the last one, which ends up in the 
+  carry flag (which we'll discuss later)
+* The extra space created gets padded with 0's
+
+----
+
+Left Shift Diagram
+==================
+
+The following snippet of assembly:
+
+.. code:: nasm
+
+	mov rax, 1
+	shl rax, 1
+	shl rax, 3
+
+Can be modelled by the following table:
+
+.. image:: images/section_2_bitops_shl_1.jpg
+
+
+----
+
+Right Shift Diagram
+===================
+
+Similarly, the following snippet of assembly:
+
+.. code:: nasm
+	
+	mov rax, 32
+	shr rax, 1
+	shr rax, 4
+
+Can be modelled by the following table:
+
+.. image:: images/section_2_bitops_shr_1.jpg
+
+
+----
+
+Binary and/or
+=============
+
+* and can be used to determine whether or not one or more bits are set in
+* or will tell you if the bit is set in at least one place
+* Both take two operands, one of which will hold the result after the operation completes
+
+Use:
+----
+
+.. code:: nasm
+
+	mov rax, 1		; rax contains 00000001
+	mov rcx, 5		; rcx contains 00000101
+	
+	and rax, rcx	; rax contains 00000001
+	or rax, rcx		; rax contains 00000101
+
+----
+
+And Table
+=========
+
+.. image:: images/section_2_bitops_and.jpg
+
+----
+
+Or Table
+========
+
+.. image:: images/section_2_bitops_or.jpg
+
+----
+
+Binary not
+==========
+
+----
+
+Properties of eXclusive Or
+==========================
+
+----
+
+XOR table
+=========
+
+----
+
+Rotating Bits
+=============
+
+----
+
+Signed Bit Operations
+=====================
