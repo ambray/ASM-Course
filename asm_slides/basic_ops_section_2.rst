@@ -382,6 +382,10 @@ Use:
 	and rax, rcx	; rax contains 00000001
 	or rax, rcx		; rax contains 00000101
 
+.. note::
+
+	Another way to think about this (if familiar with sets and set theory): AND gives us the intersection between the two sets of bits, OR gives us their union.
+
 ----
 
 And Table
