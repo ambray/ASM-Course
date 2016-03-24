@@ -604,11 +604,29 @@ A good article detailing the Microsoft x64 calling convention can be found on Th
 System V x64 Calling Convention
 ===============================
 
-* Similar to the Microsoft calling convention, but a bit simpler
+* Similar to the Microsoft calling convention, but more values are passed via registers
 * The first 6 arguments are passed via register (RDI, RSI, RCX, RDX, R8, and R9)
 * Floating point arguments go in SIMD registers (XMM0-7)
 * Additional arguments are pushed onto the stack
-* No need to allocate extra stack space (as with the Microsoft ABI)
+* Extra stack space allocation is expected by functions you are calling (as with the Microsoft ABI) to allow register spillage
+* Caller is expected to clean up
+
+----
+
+System V x64 Example
+====================
+
+Calling strlen
+
+.. code:: nasm
+
+    _mystring db "this is a string", 0x00 ; ensure NULL termination!
+
+    _call_strlen:
+        mov rdi, _mystring
+        sub rsp, 0x08      ; make room on the stack
+        call _strlen
+        add rsp, 0x08
 
 ----
 
