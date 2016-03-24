@@ -4,8 +4,11 @@ global _first_func, _second_func, _third_func
 
 _first_func:
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;  Two values have been provided,
-;  a value (consisting of a single
+;    Using the rdtsc instruction,
+;  1.) Obtain the current timestamp
+;  2.) Combine the low 32 bits (from RAX)
+;     and the high 32 bits (RDX), and
+;     return them.
 ;
 ;  BEGIN student code
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -17,21 +20,13 @@ _first_func:
 
 _second_func:
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;   You have been provided with
-;  stored in RCX.
+;   Using CPUID, get the vendor
+;  string, and copy each chunk
+;  returned into the buffer
+;  passed to your function.
+;  The buffer should be the
+;  first (and only) argument.
 ; 
-;  BEGIN student code
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;  END student code
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-    ret
-
-_third_func:
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;  Find the length of the
-;
 ;  BEGIN student code
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
