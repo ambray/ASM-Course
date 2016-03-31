@@ -63,7 +63,7 @@ int main(int argc, char** argv)
     printf("Preparing to run second_func (Get vendor string)\n");
     second_func(idbuf);
     EQ((size_t)0, (size_t)strcmp(idbuf, tmp));
-    printf("%s\n", idbuf);
+    printf("Your vendor ID string is: %s\n", idbuf);
     free(tmp);
 
     return 0;

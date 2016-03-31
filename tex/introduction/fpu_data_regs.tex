@@ -1,0 +1,25 @@
+\documentclass{standalone}
+\usepackage{tikz}
+\usepackage{tabularx}
+\usepackage{booktabs}
+
+\begin{document}
+\begin{tikzpicture}[tab_style/.style={
+	draw=blue!50!black!50,
+	top color=white,
+	bottom color=blue!50!black!50,
+	rounded corners=1mm,
+	text width=12cm,
+	align=center
+}]
+
+\node[tab_style] (tbl) {
+\begin{tabularx}{.6\textwidth}{cXrccc}
+\textbf{Sign} & \textbf{Exponent} & \textbf{Significand} \\
+\toprule
+bit 79 & bits 64-79  & bits 0-64 \\
+\end{tabularx}
+};
+
+\end{tikzpicture}
+\end{document}

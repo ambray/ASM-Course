@@ -1,0 +1,18 @@
+\documentclass{standalone}
+\usepackage{tikz}
+\usetikzlibrary{positioning}
+
+\begin{document}
+\begin{tikzpicture}[/.style={ 
+	text width=12cm
+}]
+
+
+\node (n1) [label={\it Significand}] {$1.3785$};
+\node (n3) [right = of n1]{x};
+\node (n2) [label={\it Radix }, right= of n3] {$10^{3}$};
+\node (n4) [right= of n2]{{\it Exponent} };
+\draw[->] (n4.west) -- (n2.east);
+
+\end{tikzpicture}
+\end{document}
