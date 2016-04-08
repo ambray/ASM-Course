@@ -246,10 +246,22 @@ Data Registers
 
 ----
 
-Floating Point Registers
-========================
+Floating Point Exceptions
+=========================
 
-Special Purpose
+* Floating point exceptions are separate from typical interrupts
+* They are the only interrupts you can disable from an unprivileged operating context
+* The previous instruction pointer (and other contextual information) are stored via special registers
+
+----
+
+Floating Point - Additional Information
+=======================================
+
+* Floating point hardware also includes its own FLAGS register
+* As mentioned in the previous slide, contextual information is stored in special registers under certain circumstances
+
+.. image:: ./images/fpu_outline.jpg
 
 ----
 
@@ -377,39 +389,9 @@ FPU Arithmetic Operations
 Lab 11
 ======
 
-Floating Point Operations (part 1)
+Floating Point Operations 
 
 ----
-
-FPU Instruction Set
-===================
-
-Comparisons
-
-----
-
-FPU Instruction Set
-===================
-
-Transcendentals
-
-----
-
-
-FPU Instruction Set
-===================
-
-Constants
-
-----
-
-Lab 12
-======
-
-Floating Point Operations (part 2)
-
-----
-
 
 Single Instruction, Multiple Data (SIMD)
 ========================================
