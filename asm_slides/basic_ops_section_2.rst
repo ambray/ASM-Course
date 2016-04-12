@@ -6,6 +6,21 @@ An introduction to x86
 
 ----
 
+Basic Operations
+================
+
+----
+
+Objectives
+==========
+
+* Utilize basic arithmetic and bit operations
+* Understand the difference between signed and unsigned values, from an assembly perspective
+* Understand the Two's Complement representation of signed numbers
+* Understand the Stack as it pertains to assembly programming, and implement functions that utilize it to load and store data
+
+----
+
 Arithmetic Operations
 =====================
 
@@ -191,6 +206,21 @@ Stack Alignment
 * x86_64 expects 16 byte stack alignment
 * Allocating odd amounts of space can cause things to break
 * ALWAYS make sure you clean up your stack before returning
+
+----
+
+GDB - Stack Frames
+==================
+
+* Examining the Call Stack (backtrace / bt)
+* Frames and information
+	+ frame || f - Get information about the current frame
+	+ info args - Get information about function arguments
+	+ info locals - Information about local variables
+
+.. note::
+
+	May be appropriate to demo GDB and stack frames
 
 ----
 

@@ -2,7 +2,21 @@
 :data-transition-duration: 1500
 :css: asm.css
 
-An introduction to x86
+An introduction to x86 and x86_64
+
+----
+
+Control Flow
+============
+
+----
+
+Objectives
+==========
+
+* Understand and utilize status flags and conditional control flow
+* Understand and utilize x86(_64) string instructions and corresponding instruction prefixes
+* Understand and implement methods utilizing a variety of calling conventions (both x86 and x86_64)
 
 ----
 

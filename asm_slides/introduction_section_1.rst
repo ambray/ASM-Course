@@ -2,10 +2,26 @@
 :data-transition-duration: 1500
 :css: asm.css
 
-An introduction to x86
+An introduction to x86 and x86_64
 
 ----
 
+Assembly: An Introduction
+=========================
+
+----
+
+Objectives
+==========
+
+* Understand the relationship between assembly language and opcodes
+* Understand byte ordering, as it pertains to Assembly Programming
+* Identify x86(_64) General Purpose Registers
+* Perform basic memory access operations
+* Begin debugging with the GNU Source-Level Debugger (GDB)
+* Understand basic data sizes and types with regard to x86(_64)
+
+----
 
 Understanding Assembly
 ======================
@@ -56,6 +72,10 @@ Opcodes
 
 	0xb8 0x01 0x00 0x00 0x00
 	0xc3
+
+.. note::
+
+	Perform opcodes demo
 
 ----
 
@@ -313,6 +333,50 @@ Debugging
 
 ----
 
+GDB
+===
+
+* Text User Interface
+
+* Basic Use
+  + info
+  + help
+
+* ~/.gdbinit
+
+----
+
+GDB
+===
+
+* Single Stepping (stepi/si)
+* Stepping Over (nexti/ni)
+
+----
+
+GDB
+===
+
+* Reading Memory
+
+.. note:: 
+
+	Demo stepping and using GDB with a sample init file and our opcodes demo
+
+----
+
+GDB
+===
+
+* Breakpoints (break)
+
+* Watchpoints
+	+ watch - break on write
+	+ rwatch - break on read
+	+ awatch - break on access
+
+----
+
 :data-rotate-y: 180
 
 Lab 1
@@ -385,3 +449,30 @@ Lab 2
 =====
 
 Using subregisters, accessing smaller values, and zero extending.
+
+----
+
+Structures
+==========
+
+* NASM provides a concept of a "struct" for convenience
+* More of a macro than a traditional data structure
+* Very useful for keeping track of local variables or parameters (among other things)
+
+----
+
+Structures
+==========
+
+.. code:: nasm
+
+	struc MyStruct
+		.field1		resd 1	; field1's size is 1 dword
+		.field2		resd 1  ; field2's size is 1 dword
+		.field3		resq 1	; field3's size is 1 qword
+	endstruc
+
+	; ...
+	mov rax, [rdi + MyStruct.field3] ; This will be equivalent to: mov rax, [rdi+8]
+
+----

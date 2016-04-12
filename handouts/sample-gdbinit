@@ -1,0 +1,8 @@
+set disassembly-flavor intel
+set step-mode on
+tui enable
+layout asm
+layout regs
+winheight asm +3
+winheight regs -2
+refresh

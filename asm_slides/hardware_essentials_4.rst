@@ -6,6 +6,21 @@ An introduction to x86 and x86_64
 
 ----
 
+Hardware Overview
+=================
+
+----
+
+Objectives
+==========
+
+* Understand the different privilege modes of operation
+* Understand basic memory segmentation and some descriptor tables
+* Understand and implement Model Specific Registers  (MSRs)
+* Utilize x86(_64) instructions to identify the current processor, and understand how to programmatically query its capabilities
+
+----
+
 Memory and Tables
 =================
 
@@ -228,6 +243,20 @@ MSRs and CPUID
 
 ----
 
+Floating Point and SIMD
+=======================
+
+----
+
+Objectives
+==========
+
+* Understand at a basic level how floating point numbers are represented
+* Perform basic floating point operations
+* Understand and utilize the Single Instruction Multiple Data hardware to perform basic operations
+
+----
+
 x87 - The Floating Point Architecture
 =====================================
 
@@ -243,6 +272,17 @@ Data Registers
 * Can't transfer directly from standard registers (e.g., EAX/RAX)
 
 .. image:: ./images/fpu_data_regs.jpg
+
+----
+
+GDB
+===
+
+Display floating point registers:
+
+.. code:: bash
+
+	(gdb) tui reg float 
 
 ----
 
@@ -397,3 +437,14 @@ Single Instruction, Multiple Data (SIMD)
 ========================================
 
 
+----
+
+
+GDB
+===
+
+Display SIMD registers:
+
+.. code:: bash
+
+	(gdb) tui reg vector 
