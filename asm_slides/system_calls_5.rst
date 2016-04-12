@@ -9,6 +9,25 @@ An introduction to x86 and x86_64
 Section 2
 =========
 
+Practical Application
+
+----
+
+Utility Methods
+===============
+
+----
+
+Objectives
+==========
+
+* Implement a number of basic standard library functions in assembly
+* Implement some essential data structures in assembly
+* Implement a sorting algorithm in assembly
+* (OPTIONAL) Complete provided bonus labs
+
+----
+
 Assembly: A Practical Application
 
 .. note::
@@ -95,7 +114,6 @@ Data Structure Labs
 * Bonus:
 	+ Double linked list
 	+ Hash table
-	+ Binary Search tree
 
 ----
 
@@ -115,6 +133,21 @@ Sorting
 
 Lab - Utility Functions
 =======================
+
+----
+
+System Calls - an Introduction
+==============================
+
+----
+
+Objectives
+==========
+
+* Understand the basic function and implementation of system calls (including legacy methods)
+* Understand the basic functionality provided by a C Runtime
+* Implement a system call wrapper in assembly
+* Begin work on a C Runtime
 
 ----
 
@@ -173,6 +206,15 @@ Allocation
 
 ----
 
+Objectives
+==========
+
+* Understand the basic roles and responsibilities of a simple allocator 
+* Understand the function of the mmap syscall
+* Implement a simple allocator
+
+----
+
 Allocating Memory
 =================
 
@@ -212,11 +254,19 @@ I/O
 
 ----
 
+Objectives
+==========
+
+* Understand and Identify basic facts about Linux files and file descriptors
+* Implement wrappers for several file I/O system calls
+* Understand and utilize file-based process bookkeeping mechanisms (via /proc)
+
+----
+
 Files and Operations
 ====================
 
 * UNIX Model - Everything is a file!
-* File Descriptors
 	+ A bookkeeping mechanism to represent your access to a resource
 	+ Some typically reserved numbers: 1/2/3 (for std in/out/err)
 
@@ -273,6 +323,16 @@ Lab - File I/O and Expanding _start
 
 Threading
 =========
+
+----
+
+Objectives
+==========
+
+* Understand at a basic level the Linux threading model
+* Understand some of the pitfalls of working with multithreaded applications
+* Understand and implement some of the basic synchronization tools provided by the x86(_64) instruction set
+* Implement a simple threading model
 
 ----
 
