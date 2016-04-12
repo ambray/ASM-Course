@@ -357,23 +357,26 @@ GDB
 GDB
 ===
 
-* Reading Memory
+* Breakpoints (break)
+* info break - shows us information about all currently set breakpoints
+* Removing breakpoints (clear and delete)
+
+Example:
+
+.. code:: bash
+
+	(gdb) break myfunc
+	Breakpoint 1 at 0x4004a4
+	(gdb) info break
+	Num 	Type 		 Disp Enb Address
+	1		breakpoint   keep y   0x00000000004004a4
+	(gdb) delete 1
+	(gdb) info break
+	No breakpoints or watchpoints
 
 .. note:: 
 
 	Demo stepping and using GDB with a sample init file and our opcodes demo
-
-----
-
-GDB
-===
-
-* Breakpoints (break)
-
-* Watchpoints
-	+ watch - break on write
-	+ rwatch - break on read
-	+ awatch - break on access
 
 ----
 
@@ -393,6 +396,33 @@ x86(_64) data sizes
 * word - two bytes
 * dword - double word (4 bytes - pointer width on x86)
 * qword - quad word (8 bytes - pointer width on x64)
+
+----
+
+
+GDB
+===
+
+* We can use GDB to examing various places in memory with "x" (for "eXamine")
+* x has several options:
+	+ x/nfu - where n is the Number of things to examine, f is the Format, and u is the Unit size 
+	+ x addr
+	+ x $<register> - examines the memory address pointed to by the register
+
+* Format options include:
+	+ s - For a NULL-terminated string
+	+ i - For a machine instruction
+	+ x - For hexidecimal (the default, which changes when x is used)
+
+* Unit size options are a bit confusing in the context of x86(_64) assembly, and include:
+	+ b - bytes
+	+ h - Halfwords (equivalent to "word" in x86(_64) asm; e.g., 2 bytes)
+	+ w - Words (4 bytes, equivalent to dwords)
+	+ g - Giant words (8 bytes, equivalent to qwords)
+
+.. note::
+
+	Demo - Dumping memory via GDB
 
 ----
 
@@ -474,5 +504,3 @@ Structures
 
 	; ...
 	mov rax, [rdi + MyStruct.field3] ; This will be equivalent to: mov rax, [rdi+8]
-
-----

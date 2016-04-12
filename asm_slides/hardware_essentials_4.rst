@@ -14,7 +14,7 @@ Hardware Overview
 Objectives
 ==========
 
-* Understand the different privilege modes of operation
+* Understand the different privilege modes of operation, and some of their implications
 * Understand basic memory segmentation and some descriptor tables
 * Understand and implement Model Specific Registers  (MSRs)
 * Utilize x86(_64) instructions to identify the current processor, and understand how to programmatically query its capabilities
