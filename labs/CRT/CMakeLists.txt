@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.2)
 project(CRT C CXX ASM)
 
-set(CMAKE_C_FLAGS  "${CMAKE_CXX_FLAGS} -nostdlib")
+set(CMAKE_C_FLAGS  "${CMAKE_C_FLAGS} -nostdlib")
 
 enable_language(ASM_NASM)
 file(GLOB LAB_ASM_FILES "*.nasm")
