@@ -2,11 +2,10 @@ bits 64
 
 ; LABS
 global ex_strlen, ex_memcpy, ex_memset, ex_memcmp, ex_memchr, ex_strchr, ex_strcmp, ex_strcpy, ex_atoi,
-global ex_sort
 
 
 ; BONUS LABS
-global _ex_strstr, _ex_qsort
+global ex_strstr, ex_isort, ex_qsort
 
 ex_strlen:
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -53,7 +52,9 @@ ex_memcmp:
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;  BEGIN student code
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
+    mov rcx, rdx
+    repe cmpsb
+    mov rax, rcx
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;  END student code
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -100,17 +101,6 @@ ex_atoi:
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
     ret
 
-ex_sort:
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;  BEGIN student code
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;  END student code
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-    ret
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;  |-- |      |--- |    |\     |    |   |   |-------
 ;  |   |      |    |    | \    |    |   |   |
@@ -138,6 +128,21 @@ ex_strstr:
 ;  END student code
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
     ret
+
+
+ex_isort:
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;  insertion_sort.c is provided
+;  to give an example implementation.
+;
+;  BEGIN student code
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;  END student code
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+    ret
+
 
 ex_qsort:
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
