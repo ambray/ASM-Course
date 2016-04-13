@@ -55,10 +55,6 @@ Utility Functions
 
 * Conversion
 	+ atoi
-	+ itoa
-
-* Other
-	+ Simple Hash Function
 
 ----
 
@@ -93,46 +89,16 @@ itoa / atoi
 
 ----
 
-Data Structures
-===============
-
-* Must implement at least linked list
-* Each structure has 4 functions that must be completed:
-	+ Add node (which should take a pointer to a pre-built node)
-	+ Add value (or key)
-	+ Remove node
-	+ Find node (by key)
-
-
-----
-
-Data Structure Labs
-===================
-
-* Linked List
-
-* Bonus:
-	+ Double linked list
-	+ Hash table
-
-----
-
-Sorting
-=======
+Sorting (Bonus Labs)
+====================
 
 * Insertion Sort
-
-* Bonus:
-	+ Quicksort
-
-.. note::
-
-	Instructor demo of insertion sort should be done here.
+* Quicksort
 
 ----
 
-Lab - Utility Functions
-=======================
+Lab 13 - Utility Functions
+==========================
 
 ----
 
@@ -194,10 +160,20 @@ C Runtimes: A good _start
 
 ----
 
-Lab XX
+Compiling with no CRT
+=====================
+
+* All functions will need to implemented/provided
+* Initial effort: Wrap system functionality
+	+ sys_exit
+	+ write
+
+----
+
+Lab 14
 ======
 
-Implementing a stub CRT
+Finally, time for "Hello, World!"
 
 ----
 
@@ -272,18 +248,12 @@ Files and Operations
 
 ----
 
-Reading and Writing
-===================
-
-Finally, time for "Hello, World!"
-
-----
-
 File Operations
 ===============
 
+* Read and Write
 * Open and Close (for existing files)
-* Creat and Unlink (for creating and deleting)
+* Creat and Unlink (for creating and deleting
 * Random access via lseek
 * Syncing changes
 
