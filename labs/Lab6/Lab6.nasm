@@ -1,8 +1,8 @@
 bits 64
 
-global _first_func, _second_func, _third_func
+global first_func, second_func, third_func
 
-_first_func:
+first_func:
     push rbp
     mov rbp, rsp
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -17,7 +17,7 @@ _first_func:
     pop rbp
     ret
 
-_second_func:
+second_func:
     push rbp
     mov rbp, rsp
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -32,7 +32,7 @@ _second_func:
     pop rbp
     ret
 
-_third_func:
+third_func:
     push rbp
     mov rbp, rsp
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

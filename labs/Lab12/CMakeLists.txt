@@ -1,8 +1,8 @@
 cmake_minimum_required(VERSION 3.2)
-project(Lab8 C CXX ASM)
+project(Lab12 C CXX ASM)
 
 enable_language(ASM_NASM)
 file(GLOB LAB_ASM_FILES "*.nasm")
 file(GLOB LAB_CPP_FILES "*.cpp")
 
-add_executable(lab8 ${LAB_ASM_FILES} ${LAB_CPP_FILES})
+add_executable(lab12 ${LAB_ASM_FILES} ${LAB_CPP_FILES})

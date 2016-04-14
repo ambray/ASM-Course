@@ -302,14 +302,17 @@ Objectives
 * Understand at a basic level the Linux threading model
 * Understand some of the pitfalls of working with multithreaded applications
 * Understand and implement some of the basic synchronization tools provided by the x86(_64) instruction set
-* Implement a simple threading model
+* Implement a simple threading library
 
 ----
 
 What is a Thread?
 =================
 
-* Each thread contains its own process
+* Each thread is essentially a separate stream of execution
+	+ The register values for each thread are different
+	+ This is referred to as "context"
+	+ Transitions from one thread to another is referred to as "switching context"
 * Multiple threads may be running at the same time
 * It is difficult (if not impossible!) to predict how scheduling will occur
 
@@ -341,8 +344,27 @@ The clone Syscall
 
 ----
 
+Making Atomic adds and Comparisons
+==================================
+
+.. code:: nasm
+
+	lock xadd		; add in place
+	lock bts		; bit test and set
+	lock btc		; bit test and clear
+	lock cmpxchg	; compare and swap
+	xchg			; implicitly locks
+
+----
+
 Creating a Simple Spinlock
 ==========================
+
+The core piece of our toolkit:
+
+.. code:: nasm
+
+	lock cmpxchg
 
 ----
 
@@ -353,4 +375,3 @@ Lab and Demo - Threading and Synchronization
 
 Review
 ======
-

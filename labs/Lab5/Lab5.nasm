@@ -1,10 +1,10 @@
 bits 64
 
-extern _value, _value_outbuf, _second_value, _second_outbuf
-global _first_func, _second_func, _third_func, _fourth_func, _fifth_func
-global _sixth_func, _seventh_func
+extern value, value_outbuf, second_value, second_outbuf
+global first_func, second_func, third_func, fourth_func, fifth_func
+global sixth_func, seventh_func
 
-_first_func:
+first_func:
     push rbp
     mov rbp, rsp
     mov rax, 0xfeedbeef
@@ -27,7 +27,7 @@ _first_func:
     pop rbp
     ret
 
-_second_func:
+second_func:
     push rbp
     mov rbp, rsp
     mov rax, 0xdeadbeef
@@ -46,7 +46,7 @@ _second_func:
     pop rbp
     ret
 
-_third_func:
+third_func:
     push rbp
     mov rbp, rsp
     mov rax, 0x1000
@@ -64,7 +64,7 @@ _third_func:
     ret
 
 
-_fourth_func:
+fourth_func:
     push rbp
     mov rbp, rsp
     mov rax, 0x08
@@ -82,7 +82,7 @@ _fourth_func:
     pop rbp
     ret
 
-_fifth_func:
+fifth_func:
     push rbp
     mov rbp, rsp
     mov rax, 32
@@ -100,10 +100,10 @@ _fifth_func:
     pop rbp
     ret
 
-_sixth_func:
+sixth_func:
     push rbp
     mov rbp, rsp
-    mov rax, _second_value
+    mov rax, second_value
     mov rax, qword [rax]
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;  The string Success! has been
@@ -120,16 +120,16 @@ _sixth_func:
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;  END student code
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-    mov rcx, _second_outbuf
+    mov rcx, second_outbuf
     mov rcx, [rcx]
     mov [rcx], rax
     pop rbp
     ret
 
-_seventh_func:
+seventh_func:
     push rbp
     mov rbp, rsp
-    mov rax, _value
+    mov rax, value
     mov rax, qword [rax]
     mov rdx, 0xcc
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -147,7 +147,7 @@ _seventh_func:
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;  END student code
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-    mov rdi, _value_outbuf
+    mov rdi, value_outbuf
     mov rdi, [rdi]
     mov [rdi], rax
     xor rax, rax

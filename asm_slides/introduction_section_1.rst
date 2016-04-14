@@ -6,6 +6,49 @@ An introduction to x86 and x86_64
 
 ----
 
+Introduction to Assembly Programming
+====================================
+
+.. code:: nasm
+
+	instructor	db "Aaron Bray", 0x0a, 0x00
+	email  db "aaron.m.bray@gmail.com", 0x0a, 0x00
+
+----
+
+Course Roadmap
+==============
+
+.. code:: nasm
+
+	content:
+		jmp .introduction
+
+	.introduction:
+		mov rax, HowToAsm
+		jmp .basic_operations
+
+	.basic_operations:
+		call .arithmetic
+		call .bit_operations
+		mov rcx, DataTypes
+		jmp .control_flow
+
+	.control_flow:
+		jmp .hardware_essentials
+
+	.hardware_essentials:
+		mov rax, Memory
+		mov rcx, Interrupts
+		call FloatingPoint
+		call Simd
+		call .systems_programming
+
+	.systems_programming:
+		ret
+
+----
+
 Assembly: An Introduction
 =========================
 

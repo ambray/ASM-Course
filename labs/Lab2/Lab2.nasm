@@ -1,9 +1,9 @@
 bits 64
 
-extern _value
-global _first_func
+extern value
+global first_func
 
-_first_func:
+first_func:
     mov rax, -1
     mov rcx, -1
     mov cl, 0x04

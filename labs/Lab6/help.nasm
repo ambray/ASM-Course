@@ -1,8 +1,8 @@
 bits 64
 
-global _get_flags
+global get_flags
 
-_get_flags:
+get_flags:
     pushfq
     pop rax
     ret

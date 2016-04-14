@@ -1,9 +1,9 @@
 bits 64
 
-global _first_func, _second_func, _third_func, _fourth_func, _fifth_func
+global first_func, second_func, third_func, fourth_func, fifth_func
 
 
-_first_func:
+first_func:
     mov rax, 10
 ;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;  For this test, you will
@@ -18,7 +18,7 @@ _first_func:
 ;;;;;;;;;;;;;;;;;;;;;;;;;;
     ret
 
-_second_func:
+second_func:
     mov rax, 30
 ;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;  For this test you will
@@ -35,7 +35,7 @@ _second_func:
 
 
 
-_third_func:
+third_func:
     mov rax, 10
 ;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;  For this lab, you will
@@ -50,7 +50,7 @@ _third_func:
 ;;;;;;;;;;;;;;;;;;;;;;;;;;
     ret
 
-_fourth_func:
+fourth_func:
     mov rax, 10
 ;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;  For this lab, you will
@@ -67,7 +67,7 @@ _fourth_func:
 ;;;;;;;;;;;;;;;;;;;;;;;;;;
     ret
 
-_fifth_func:
+fifth_func:
     mov rax, 7
 ;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;  For this lab, you will

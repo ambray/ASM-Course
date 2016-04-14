@@ -1,12 +1,6 @@
 cmake_minimum_required(VERSION 3.2)
 project(Lab1 C CXX ASM)
 enable_language(ASM_NASM)
-if(UNIX)
-  if(APPLE)
-  else(APPLE)
-#    set(CMAKE_ASM_NASM_LINK_EXECUTABLE "ld <FLAGS> <CMAKE-ASM_NASM_LINK_FLAGS> <LINK_FLAGS> <OBJECTS> -o  <TARGET> <LINK_LIBRARIES>")
-  endif(APPLE)
-endif(UNIX)
 
 file(GLOB LAB_ASM_FILES "*.nasm")
 file(GLOB LAB_CPP_FILES "*.cpp")

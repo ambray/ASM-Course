@@ -1,12 +1,12 @@
 bits 64
 
-extern _value
-extern _buf
-extern _val1
-extern _val2
-global _first_func, _second_func, _third_func, _fourth_func, _fifth_func, _sixth_func
+extern value
+extern buf
+extern val1
+extern val2
+global first_func, second_func, third_func, fourth_func, fifth_func, sixth_func
 
-_first_func:
+first_func:
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;  This is your first method for
 ;  the lab. First problem:
@@ -22,7 +22,7 @@ _first_func:
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;
 	ret
 
-_second_func:
+second_func:
   mov rcx, 0x20
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; The second function in the lab
@@ -40,8 +40,8 @@ _second_func:
   ret
 
 
-_third_func:
-  mov rcx, _value
+third_func:
+  mov rcx, value
   mov rax, 0x10
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;  The third function involves
@@ -61,8 +61,8 @@ _third_func:
   ret
 
 
-_fourth_func:
-  mov rcx, _value
+fourth_func:
+  mov rcx, value
   xor rax, rax
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;  For the fourth function, copy
@@ -78,8 +78,8 @@ _fourth_func:
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
   ret
 
-_fifth_func:
-  mov rcx, _buf
+fifth_func:
+  mov rcx, buf
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; For this lab, you will need
 ; to use LEA to calculate the
@@ -99,9 +99,9 @@ _fifth_func:
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
   ret
 
-_sixth_func:
-  mov rcx, _val1
-  mov rdx, _val2
+sixth_func:
+  mov rcx, val1
+  mov rdx, val2
   xor rax, rax
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; For this lab, you will need to

@@ -9,6 +9,10 @@
 	@include border-style(solid);
 } 	
 
+.instruction-table td {
+	padding: 20px;
+}
+
 body {
 	@include background(linear-gradient(#f0e6c7, #f0e6c7) left repeat);
 	font-size: modular-scale(2);

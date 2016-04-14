@@ -1,30 +1,34 @@
 bits 64
 
-extern _first_value
-global _first_func, _second_func, _third_func
-global _out, _out2
+extern first_value
+global first_func, second_func, third_func
+global out1, out2
 
 section .data
 
-_firstfloat dd 1.2345
-_secondfloat dd 2.345
-_out dd 0x0
+firstfloat dd 1.2345
 
-_out2 dq 0x0
-_tmp dq 0x0
+secondfloat dd 2.345
+
+out1 dd 0x00
+
+
+out2 dq 0x00
+
+tmp dq 0x00
 
 section .text
 
-_first_func:
+first_func:
     push rbp
     mov rbp, rsp
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;    This problem will require
-;  you to load both _firstfloat
-;  and _secondfloat (above) onto
+;  you to load both firstfloat
+;  and secondfloat (above) onto
 ;  the floating point stack, add
 ;  them together, and store the
-;  result in _out.
+;  result in out1.
 ; 
 ;  BEGIN student code
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -35,7 +39,7 @@ _first_func:
     pop rbp
     ret
 
-_second_func:
+second_func:
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;   This problem will require
 ;  you to add the contents of
@@ -43,7 +47,7 @@ _second_func:
 ;  that is passed in as the
 ;  first (and only) argument
 ;  to your function. Store the
-;  result at _out2.
+;  result at out2.
 ; 
 ;  BEGIN student code
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

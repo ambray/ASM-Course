@@ -6,7 +6,7 @@
 #define FIRST_EXPECTED (float)3.5795002
 #define SECOND_EXPECTED (float)11.23450005
 
-extern "C" float out;
+extern "C" float out1;
 extern "C" double out2;
 extern "C" size_t first_func(void);
 extern "C" size_t second_func(int);
@@ -19,8 +19,8 @@ int main(int argc, char** argv)
 {
     printf("Preparing to run first_func (Add floating point numbers)\n");
     first_func();
-    printf("Result: %.8g\n", out);
-    EQ(FIRST_EXPECTED, out);
+    printf("Result: %.8g\n", out1);
+    EQ(FIRST_EXPECTED, out1);
 
     printf("Preparing to run second_func (Add floats and integers)\n");
     second_func(10);

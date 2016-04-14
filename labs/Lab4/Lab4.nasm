@@ -1,9 +1,9 @@
 bits 64
 
-extern _value
-global _first_func, _second_func
+extern value
+global first_func, second_func
 
-_first_func:
+first_func:
     push rbp
     mov rbp, rsp
     mov rcx, 0x10
@@ -22,10 +22,10 @@ _first_func:
     pop rbp
     ret
 
-_second_func
+second_func
     push rbp
     mov rbp, rsp
-    mov rcx, _value
+    mov rcx, value
     mov rax, 1
     mov rdx, 2
     mov rsi, 3

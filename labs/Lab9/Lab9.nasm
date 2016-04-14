@@ -1,11 +1,11 @@
 bits 64
 
-global _first_func, _second_func, _third_func
+global first_func, second_func, third_func
 
-extern _printf
+extern printf
 mystr  db "Success!", 0xa, 0x00
 
-_first_func:
+first_func:
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;  The function printf has been
 ;  externed in (above). Call it,
@@ -20,9 +20,9 @@ _first_func:
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
     ret
 
-extern _strlen
+extern strlen
 
-_second_func:
+second_func:
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;   Your function will be called
 ;  with two arguments: a function
@@ -45,7 +45,7 @@ _second_func:
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
     ret
 
-_third_func:
+third_func:
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;   Calculate the Nth fibonacci
 ;  number (where N is the value

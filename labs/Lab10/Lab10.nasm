@@ -1,8 +1,8 @@
 bits 64
 
-global _first_func, _second_func, _third_func
+global first_func, second_func, third_func
 
-_first_func:
+first_func:
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;    Using the rdtsc instruction,
 ;  1.) Obtain the current timestamp
@@ -18,7 +18,7 @@ _first_func:
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
     ret
 
-_second_func:
+second_func:
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;   Using CPUID, get the vendor
 ;  string, and copy each chunk

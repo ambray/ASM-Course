@@ -436,6 +436,180 @@ Floating Point Operations
 Single Instruction, Multiple Data (SIMD)
 ========================================
 
+----
+
+What is SIMD?
+=============
+
+* Set of specialized hardware and instructions
+* SSE (Streaming SIMD Extensions) is part of this (among others)
+* Provide a mechanism for operating on "vectors" of data at a time
+* Can perform a variety of operations 128 bits at a time
+
+----
+
+SIMD Hardware
+=============
+
+* x86: 8 SSE registers available, from XMM0 - XMM7
+* x64: provides 16 SSE registers, from XMM0 - XMM15
+
+----
+
+SIMD Operations - Moving Data
+=============================
+
+* Operations typically operate on vector or scalar values
+	+ Scalar - 32 bits (single element)
+	+ Vector - All elements of the SIMD register (128 bits)
+
+* Moving data in/out:
+	+ movups - Move 128 bits of data between memory and/or SIMD register(s), unaligned
+	+ movaps - Move 128 bits of data between memory and/or SIMD register(s), aligned
+	+ movhps - Move 64 bits into the high part of a SIMD register
+	+ movlps - Move 64 bits into the low part of a SIMD register
+	+ movss - Move a 32 bit value between memory and/or SIMD register(s)
+
+----
+
+SIMD: Moving Around
+===================
+
+.. code:: nasm
+
+	movups xmm0, [rdi]	; moving 128 bits of data into xmm0
+	movss xmm1, [rsi]	; moving 32 bits of data into xmm1
+	mov [rdx], eax 
+	movss xmm2, [rdx]
+
+----
+
+:class: instruction-table
+
+SIMD Arithmetic
+===============
+
+The table below lists arithmetic instructions, both the scalar and vector variations:
+
++-----------+-----------+-----------------------+
+| Vector    | Scalar    | Description           |
++-----------+-----------+-----------------------+
+| addps     | addss     | Adds operands         |
++-----------+-----------+-----------------------+
+| subps     | subss     | Subtracts operands    |
++-----------+-----------+-----------------------+
+| mulps     | mulss     | Multiplies operands   |
++-----------+-----------+-----------------------+
+| divps     | divss     | Divides operands      |
++-----------+-----------+-----------------------+
+ 
+----
+
+SIMD Arithmetic
+===============
+
+Example use:
+
+.. code:: nasm
+
+	movups xmm0, [rdi]	; load first vector
+	movups xmm1, [rsi]	; load second vector
+	addps xmm0, xmm1 	; add the two
+	movups [rdx]		; store the result
+
+----
+
+SIMD Comparisons
+================
+
+Comparison Operations
+
+* cmp* operation is a bit strange at first
+	+ Compares a combination of registers/memory
+	+ Stores the result in the first operand
+	+ Third param indicates the type of compare to do (next slide)
+	+ Result stored as 0 if the condition is false, -1 (all 1's) if true
+* Min and max preserve the values that are greater (or smaller) between operands
+
+----
+
+:class: instruction-table
+
+SIMD Comparisons
+================
+
+Cmp's third parameter:
+
++----------+------------------+----------+
+| Number   | Operation        | C Equiv  |
++----------+------------------+----------+
+| 0        | Equal            | ==       |
++----------+------------------+----------+
+| 1        | Less Than        | <        |
++----------+------------------+----------+
+| 2        | Less or equal    | <=       |
++----------+------------------+----------+
+| 3        | Unordered        | n/a      |
++----------+------------------+----------+
+| 4        | Not Equal        | !=       |
++----------+------------------+----------+
+| 5        | Not Less than    | !(x < y) |
++----------+------------------+----------+
+| 6        | Not less or equal| !(x <= y)|
++----------+------------------+----------+
+| 7        | Ordered          | n/a      |
++----------+------------------+----------+
+
+----
+
+:class: instruction-table
+
+SIMD Comparisons
+================
+
+Operations
+
++-----------+-----------+-------------------------------+
+| Vector    | Scalar    | Description                   |
++-----------+-----------+-------------------------------+
+| maxps     | maxss     | Obtains maximum of operands   |
++-----------+-----------+-------------------------------+
+| minps     | minss     | Obtains minimum of operands   |
++-----------+-----------+-------------------------------+
+| cmpps     | cmpss     | Compares operands, all 1's or |
+|           |           | 0's returned.                 |
++-----------+-----------+-------------------------------+
+
+
+----
+
+SIMD Comparisons
+================
+
+Example:
+
+.. code:: nasm
+
+	movups xmm0, [rax]
+	movups xmm1, [rcx]
+	cmpps xmm0, xmm1, 4	; find the values that are not equal
+
+----
+
+:class: instruction-table
+
+SIMD Bitwise Operations
+=======================
+
++-----------+---------------------------+
+| Vector    | Description               |
++-----------+---------------------------+
+| andps     | Bitwise and of operands   |
++-----------+---------------------------+
+| orps      | Bitwise or of operands    |
++-----------+---------------------------+
+| xorps     | Bitwise xor of operands   |
++-----------+---------------------------+
 
 ----
 
@@ -448,3 +622,10 @@ Display SIMD registers:
 .. code:: bash
 
 	(gdb) tui reg vector 
+
+----
+
+Lab 12
+======
+
+SIMD
