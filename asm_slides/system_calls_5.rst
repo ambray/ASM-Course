@@ -58,7 +58,7 @@ Utility Functions
 
 ----
 
-itoa / atoi
+atoi
 
 .. code:: C
 

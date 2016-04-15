@@ -39,22 +39,16 @@ Adds and subtracts arbitrary values. The destination (where the result is stored
 Basic Use
 ---------
 
-Using an immediate, we can just add a number to a value in a register:
+We can use a combination of registers and immediates as operands:
 
 .. code:: nasm
 
 	mov rax, 1
 	add rax, 2 ; rax now contains 3
 	sub rax, 1 ; rax now contains 2
-
-We can also add the values stored in two registers together:
-
-.. code:: nasm
-
-	mov rax, 1
 	mov rcx, 2
-	add rax, rcx ; as above, rax now contains 3
-	sub rax, rcx ; rax is now back to 1
+	add rax, rcx ; as above, rax now contains 4
+	sub rax, rcx ; rax is now back to 2
 
 ----
 

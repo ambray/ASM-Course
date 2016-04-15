@@ -41,11 +41,9 @@ FLAGS
 Flag Layout
 ===========
 
-[1]_
-
 .. image:: images/eflags-intel2.jpg
 
-.. [1] Credit: the Intel Manual
+Credit: the Intel Manual
 
 ----
 
@@ -634,12 +632,14 @@ Calling strlen
 
 .. code:: nasm
 
-    _mystring db "this is a string", 0x00 ; ensure NULL termination!
+    extern strlen
+    
+    mystring db "this is a string", 0x00 ; ensure NULL termination!
 
-    _call_strlen:
-        mov rdi, _mystring
+    call_strlen:
+        mov rdi, mystring
         sub rsp, 0x08      ; make room on the stack
-        call _strlen
+        call strlen
         add rsp, 0x08
 
 ----

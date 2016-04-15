@@ -105,6 +105,11 @@ Interrupts (Cont'd)
 	+ This is an (old) way of talking to the kernel (x86)
 	+ int 0x80 will look up the 0x80-th entry in the IDT, and call it
 
+---- 
+
+Interrupts - Example:
+=====================
+
 The following code will perform an exit(0) on Linux (x86):
 
 .. code:: nasm
@@ -113,7 +118,7 @@ The following code will perform an exit(0) on Linux (x86):
 	mov ebx, 0x00	; first parameter
 	int 0x80 		; interrupt
 
----- 
+----
 
 Segment Registers
 =================
