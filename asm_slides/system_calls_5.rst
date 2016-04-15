@@ -351,7 +351,7 @@ Making Atomic adds and Comparisons
 
 	lock xadd		; add in place
 	lock bts		; bit test and set
-	lock btc		; bit test and clear
+	lock btr		; bit test and clear
 	lock cmpxchg	; compare and swap
 	xchg			; implicitly locks
 
