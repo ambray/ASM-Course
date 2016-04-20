@@ -107,8 +107,10 @@ sixth_func:
 ; For this lab, you will need to
 ; use XCHG to swap two values
 ; stored in addresses in memory.
-; The first value is pointer to
-; by RCX, and the second by RDX.
+; The first value is a pointer to
+; some data, contained by RCX, and 
+; the second is a pointer stored in
+; RDX.
 ; HINT: Two XCHGs may be required.
 ;
 ;  BEGIN student code
