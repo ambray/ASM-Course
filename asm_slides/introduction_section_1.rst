@@ -291,6 +291,19 @@ Please note that this replaces the old value in rcx, which was just the address 
 
 ----
 
+Now, for our first instruction...
+
+----
+
+NOP
+===
+
+* Does nothing!
+* Used for padding/alignment/timing reasons
+* Idempotent instruction (doesn't affect anything else in the system)
+
+----
+
 Memory Access - mov
 ===================
 

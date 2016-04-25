@@ -9,12 +9,29 @@
 	@include border-style(solid);
 } 	
 
+
+.shrink-table td {
+	font-size: 10pt;	
+}
+
 .instruction-table td {
 	padding: 5px;
 	font-size: 10pt;
+}
+
+.flex-image img {
+	@include display(inline-flex);
+	@include justify-content(flex-end);
+	width:175%;
+	height: auto;
+}
+
+.flex-image p {
+	font-size: 8pt;
 }
 
 body {
 	@include background(linear-gradient(#f0e6c7, #f0e6c7) left repeat);
 	font-size: modular-scale(2);
 }
+

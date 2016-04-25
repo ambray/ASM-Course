@@ -135,8 +135,8 @@ Legacy System Call Method
 Modern Alternative
 ==================
 
-* x86: syscall
-* x64: sysenter / sysexit
+* x86: sysenter / sysexit
+* x64: syscall
 
 ----
 
@@ -147,6 +147,19 @@ Wrapping system calls
 
 * x86
 * x64
+
+----
+
+Getting Information
+===================
+
+* Man pages often have a comprehensive list of required flags (even if definitions are buried in header files)
+* May be more than 1 section to a man page (if the page overlaps with a utility page "2" generally has dev docs)
+
+.. code:: bash
+
+	~$ man mmap		
+	~$ man 2 open
 
 ----
 
@@ -167,6 +180,48 @@ Compiling with no CRT
 * Initial effort: Wrap system functionality
 	+ sys_exit
 	+ write
+
+----
+
+:class: split-table
+
+sys_exit
+========
+
+
++------+-----------------+
+| RAX  |  RDI            |
++------+-----------------+
+| 60   | status (int)    |
++------+-----------------+
+
+----
+
+Implementing sys_exit
+=====================
+
+.. code:: nasm
+
+	mov rax, 60  ; the syscall number (in this case exit)
+	xor rdi, rdi ; the first argument in the syscall (in this case, the exit code)
+    syscall 
+	ret
+
+----
+
+:class: split-table
+
+Some Setup
+==========
+
+* STDOUT - A special kind of file descriptor (1)
+* sys_write
+
++------+-----------------+-------------------+-----------+
+| RAX  |  RDI            |  RSI              | RDX       | 
++------+-----------------+-------------------+-----------+
+| 1    | fd              | buffer ptr        | Count	 |
++------+-----------------+-------------------+-----------+
 
 ----
 
@@ -199,12 +254,49 @@ Allocating Memory
 
 ----
 
+Allocator Strategies
+====================
+
+// TODO: Talk about some allocator strategies to use
+
+----
+
+:class: split-table
+
 mmap
 ====
 
 * Lets us create a memory mapping
 * May be backed by a file, or anonymous
 * This will be the base for our allocator
+
++------+-----------------+-------------------+-----------+------------+----------------------+--------+
+| RAX  |  RDI            |  RSI              | RDX       | R10        | R8                   | R9     |
++------+-----------------+-------------------+-----------+------------+----------------------+--------+
+| 9    | addr (or NULL)  | length            | Protection| Flags      | Descriptor (or NULL) | offset |
++------+-----------------+-------------------+-----------+------------+----------------------+--------+
+
+----
+
+Arguments
+=========
+
+* Protection (from mman-linux.h)
+
+.. code:: c
+
+	#define PROT_READ	0x1		/* Page can be read.  */
+	#define PROT_WRITE	0x2		/* Page can be written.  */
+	#define PROT_EXEC	0x4		/* Page can be executed.  */
+	#define PROT_NONE	0x0		/* Page can not be accessed.  */
+
+* Flags (need to be OR'd together)
+
+.. code:: c
+
+	#define MAP_ANONYMOUS	0x20		/* Don't use a file.  */
+	/* ... */
+	#define MAP_PRIVATE		0x02		/* Changes are private.  */
 
 ----
 
@@ -217,6 +309,19 @@ Creating a Heap
 	+ Initialization: Handled in _start
 	+ Making Requests: Define a "block" size
 	+ Keeping a list: Maintain a list of "free" chunks
+
+----
+
+:class: split-table
+
+munmap
+======
+
++------+-----------------+-------------------+
+| RAX  |  RDI            |  RSI              | 
++------+-----------------+-------------------+
+| 11   | addr            | length            |
++------+-----------------+-------------------+
 
 ----
 
@@ -243,6 +348,7 @@ Files and Operations
 ====================
 
 * UNIX Model - Everything is a file!
+* File Descriptors
 	+ A bookkeeping mechanism to represent your access to a resource
 	+ Some typically reserved numbers: 1/2/3 (for std in/out/err)
 
@@ -253,9 +359,8 @@ File Operations
 
 * Read and Write
 * Open and Close (for existing files)
-* Creat and Unlink (for creating and deleting
-* Random access via lseek
-* Syncing changes
+* Unlink (for deleting)
+* Syncing changes - msync and fsync
 
 ----
 
@@ -265,6 +370,18 @@ mmap - A different use
 * Can be used to map a file into memory
 * Essentially (part of) how executables are loaded
 * Can be more efficient for I/O 
+
+----
+
+mmap - Some new flags
+=====================
+
+* Required to be set to Shared for changes to appear in base file
+* Changes may not show up until either munmap or a call to msync
+
+.. code:: c
+
+	#define MAP_SHARED	0x01		/* Share changes.  */
 
 ----
 
@@ -283,6 +400,111 @@ Process Information and Virtual Memory
 * /proc - a special type of directory
 * /proc/self
 * Getting to process parameters
+
+----
+
+:class: split-table shrink-table
+
+Syscall Info - pt1
+==================
+
++--------+------+------------------+-------------------+-----------+------------+------------+--------+
+|Syscall | RAX  |  RDI             |  RSI              | RDX       | R10        | R8         | R9     |
++--------+------+------------------+-------------------+-----------+------------+------------+--------+
+| mmap   | 9    | address          | length            | Protection| Flags      | Descriptor | offset |
++--------+------+------------------+-------------------+-----------+------------+------------+--------+
+| munmap | 11   | address          | length            |           |            |            |        | 
++--------+------+------------------+-------------------+-----------+------------+------------+--------+ 
+| read   | 0    | Descriptor       | buffer ptr        | Count     |            |            |        |
++--------+------+------------------+-------------------+-----------+------------+------------+--------+
+| write  | 1    | Descriptor       | buffer ptr        | Count     |            |            |        | 
++--------+------+------------------+-------------------+-----------+------------+------------+--------+
+| open   | 2    | filename (char*) | flags             |   mode    |            |            |        |
++--------+------+------------------+-------------------+-----------+------------+------------+--------+ 
+| close  | 3    | Descriptor       |                   |           |            |            |        | 
++--------+------+------------------+-------------------+-----------+------------+------------+--------+ 
+
+----
+
+:class: split-table shrink-table
+
+Syscall Info - pt2
+==================
+
++--------+------+--------------+-------------------+-----------+------------+------------+--------+
+|Syscall | RAX  |  RDI         |  RSI              | RDX       | R10        | R8         | R9     |
++--------+------+--------------+-------------------+-----------+------------+------------+--------+
+| unlink | 87   | Path (char*) |                   |           |            |            |        | 
++--------+------+--------------+-------------------+-----------+------------+------------+--------+ 
+| msync  | 26   | address start| length            | flags     |            |            |        | 
++--------+------+--------------+-------------------+-----------+------------+------------+--------+ 
+| fsync  | 74   | Descriptor   |                   |           |            |            |        | 
++--------+------+--------------+-------------------+-----------+------------+------------+--------+ 
+
+----
+
+Flags and Modes
+===============
+
+* Msync options
+
+.. code:: c
+
+	/* Flags to `msync'.  */
+	#define MS_ASYNC	1		/* Sync memory asynchronously.  */
+	#define MS_SYNC		4		/* Synchronous memory sync.  */
+
+* Open options
+	+ One of the following options must be chosen:
+
+.. code:: c
+
+	#define O_RDONLY	     00
+	#define O_WRONLY	     01
+	#define O_RDWR		     02
+
+
+	+ Zero or more of the following may be chosen:
+
+.. code:: c
+
+	#define O_CREAT	   0100	/* Create the file */
+	#define O_TRUNC	  01000	/* Truncate (if exists) */
+	#define O_APPEND  02000 /* Append */
+
+
+----
+
+Mode
+====
+
+* If file is being created, specifies permissions to set on it
+* Can be one of the following values (follow UNIX-style permission rules) specified on the next slide
+
+----
+
+:class: split-table shrink-table
+
++---------+-------+--------------------------------------------------+
+| S_IRWXU | 00700 | user  (file  owner)  has read, write and execute |
+|         |       | permission                                       |
++---------+-------+--------------------------------------------------+
+| S_IRUSR | 00400 | user has read permission                         |
++---------+-------+--------------------------------------------------+
+| S_IWUSR | 00200 | user has write permission                        |
++---------+-------+--------------------------------------------------+
+| S_IXUSR | 00100 | user has execute permission                      |
++---------+-------+--------------------------------------------------+
+| S_IRWXG | 00070 | group has read, write and execute permission     |
++---------+-------+--------------------------------------------------+
+| S_IRGRP | 00040 | group has read permission                        |
++---------+-------+--------------------------------------------------+
+| S_IWGRP | 00020 | group has write permission                       |
++---------+-------+--------------------------------------------------+
+| S_IXGRP | 00010 | group has execute permission                     |
++---------+-------+--------------------------------------------------+
+| S_IRWXO | 00007 | others have read, write and execute permission   |
++---------+-------+--------------------------------------------------+
 
 ----
 
@@ -344,6 +566,23 @@ The clone Syscall
 
 ----
 
+:class: split-table
+
+Clone
+=====
+
+// TODO: Talk about using the syscall; similarities to fork(), etc.
+// Show some basic uses of clone... talk about setting up new stack,
+// illustrate sharing, setting up register values, etc
+
++--------+------+------------------+-------------------+-----------+------------+
+|Syscall | RAX  |  RDI             |  RSI              | RDX       | R10        | 
++--------+------+------------------+-------------------+-----------+------------+
+| Clone  | 56   | Clone flags      | Stack Pointer     | parent tid| child tid  | 
++--------+------+------------------+-------------------+-----------+------------+
+
+----
+
 Making Atomic adds and Comparisons
 ==================================
 
@@ -360,11 +599,11 @@ Making Atomic adds and Comparisons
 Creating a Simple Spinlock
 ==========================
 
-The core piece of our toolkit:
-
 .. code:: nasm
 
-	lock cmpxchg
+	lock bts
+	; ...
+	lock btr
 
 ----
 

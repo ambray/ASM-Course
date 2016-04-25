@@ -34,7 +34,7 @@ second_func:
 ;  pointed to by parameter 2.
 ;  Store the results of the
 ;  comparison in the vector
-;  pointer to by parameter 3.
+;  pointed to by parameter 3.
 ; 
 ;  BEGIN student code
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
