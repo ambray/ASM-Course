@@ -283,20 +283,20 @@ Arguments
 
 * Protection (from mman-linux.h)
 
-.. code:: c
+.. code:: nasm
 
-	#define PROT_READ	0x1		/* Page can be read.  */
-	#define PROT_WRITE	0x2		/* Page can be written.  */
-	#define PROT_EXEC	0x4		/* Page can be executed.  */
-	#define PROT_NONE	0x0		/* Page can not be accessed.  */
+	%define PROT_READ	0x1		; Page can be read.  
+	%define PROT_WRITE	0x2		; Page can be written.  
+	%define PROT_EXEC	0x4		; Page can be executed.  
+	%define PROT_NONE	0x0		; Page can not be accessed.  
 
 * Flags (need to be OR'd together)
 
-.. code:: c
+.. code:: nasm
 
-	#define MAP_ANONYMOUS	0x20		/* Don't use a file.  */
-	/* ... */
-	#define MAP_PRIVATE		0x02		/* Changes are private.  */
+	%define MAP_ANONYMOUS	0x20		; Don't use a file.  
+	; ... 
+	%define MAP_PRIVATE		0x02		; Changes are private.  
 
 ----
 
@@ -379,9 +379,9 @@ mmap - Some new flags
 * Required to be set to Shared for changes to appear in base file
 * Changes may not show up until either munmap or a call to msync
 
-.. code:: c
+.. code:: nasm
 
-	#define MAP_SHARED	0x01		/* Share changes.  */
+	%define MAP_SHARED	0x01		; Share changes.  
 
 ----
 
@@ -446,31 +446,32 @@ Syscall Info - pt2
 Flags and Modes
 ===============
 
-* Msync options
+Msync options
 
-.. code:: c
+.. code:: nasm
 
-	/* Flags to `msync'.  */
-	#define MS_ASYNC	1		/* Sync memory asynchronously.  */
-	#define MS_SYNC		4		/* Synchronous memory sync.  */
+	; Flags to `msync'.  
+	%define MS_ASYNC	1		; Sync memory asynchronously.  
+	%define MS_SYNC		4		; Synchronous memory sync.  
 
-* Open options
-	+ One of the following options must be chosen:
+Open options:
 
-.. code:: c
+* One of the following options must be chosen:
 
-	#define O_RDONLY	     00
-	#define O_WRONLY	     01
-	#define O_RDWR		     02
+.. code:: nasm
+
+	%define O_RDONLY	     00
+	%define O_WRONLY	     01
+	%define O_RDWR		     02
 
 
-	+ Zero or more of the following may be chosen:
+* Zero or more of the following may be chosen:
 
-.. code:: c
+.. code:: nasm
 
-	#define O_CREAT	   0100	/* Create the file */
-	#define O_TRUNC	  01000	/* Truncate (if exists) */
-	#define O_APPEND  02000 /* Append */
+	%define O_CREAT	   0100	; Create the file 
+	%define O_TRUNC	  01000	; Truncate (if exists) 
+	%define O_APPEND  02000 ; Append 
 
 
 ----
@@ -587,22 +588,22 @@ Flags
 
 Some flags we'll want for our thread library:
 
-.. code:: c
+.. code:: nasm
 
-	#define CLONE_VM      0x00000100 /* Set if VM shared between processes.  */
-	#define CLONE_FS      0x00000200 /* Set if fs info shared between processes.  */
-	#define CLONE_FILES   0x00000400 /* Set if open files shared between processes.  */
-	#define CLONE_SIGHAND 0x00000800 /* Set if signal handlers shared.  */
-	#define CLONE_THREAD  0x00010000 /* Set to add to same thread group.  */
+	%define CLONE_VM      0x00000100 ; Set if VM shared between processes.  
+	%define CLONE_FS      0x00000200 ; Set if fs info shared between processes.  
+	%define CLONE_FILES   0x00000400 ; Set if open files shared between processes.  
+	%define CLONE_SIGHAND 0x00000800 ; Set if signal handlers shared.  
+	%define CLONE_THREAD  0x00010000 ; Set to add to same thread group.  
 
 ----
 
 Basic Steps to Success
 ======================
 
-1.) Allocate Stack Space
-2.) Call Clone
-3.) Transfer Control to Intended function
+1. Allocate Stack Space
+2. Call Clone
+3. Transfer Control to Intended function
 
 ---- 
 
@@ -612,9 +613,9 @@ Allocating Stack Space
 * The stack grows down, and thus we need to give the high part of the new stack segment to clone
 * mmap is the best choice to do this, as it has flags that let us specify that we wish to use the allocated memory as a thread stack:
 
-.. code:: c
+.. code:: nasm
 
-	#define MAP_GROWSDOWN	0x0100
+	%define MAP_GROWSDOWN	0x0100
 
 ----
 
@@ -627,17 +628,129 @@ Calling Clone
 
 .. code:: nasm
 
-	lea rcx, [rcx + STACK_SIZE]  ; assuming rcx contains a pointer to our newly allocated stack segment
+	lea rsi, [rsi + STACK_SIZE]  ; assuming rsi contains a pointer to our newly allocated stack segment
+
+----
+
+Calling Clone (cont'd)
+======================
+
+* After clone, both the parent and child continue executing in the same place (right after the syscall)
+* The child (our newly created thread) will have the same initial register values as the parent, with two exceptions:
+	+ RAX - this will be set to 0
+	+ RSP - this will now point to our new stack
+* The parent will now have (in RAX) the PID of the thread
 
 ----
 
 Running the Thread Function
 ===========================
 
+* A number of options exist to transfer control to the new function
+	+ Pass via non-volatile register
+	+ Pass via stack
+* If any thread-specific setup is to be done, just need to:
+
+.. code:: nasm
+
+	test rax, rax
+	jz .child
+	jmp .parent
+
+* easiest method of control transfer is probably passing via the new stack
+
+----
+
+Running the Thread Function (cont'd)
+====================================
+
+* Recall from our section on control flow that the ret instruction essentially performs "pop rip" (or pop X + jmp X)
+* Thus, we can now set our stack up so that the new thread function will be our return point (we'll just change the way our stack looks before the call to clone):
+
+Now, instead of: 
+
+.. code:: nasm
+
+	lea rsi, [rsi + STACK_SIZE]
+	; ...
+	syscall
+
+we will:
+
+.. code:: nasm
+
+	lea rsi, [rsi + STACK_SIZE - 8]
+	mov [rsi], rdi 	; our function pointer
+	; ...
+	syscall
+	; ...
+	ret
+
+----
+
+Running the Thread Function (cont'd)
+====================================
+
+* With our function set to be at the top of the new stack, we can now simply return
+* On return, our new thread will begin executing inside of the thread function
+* This works wonderfully, BUT
+	+ What happens when the thread function returns?
+
+----
+
+Exit
+====
+
+* We need to ensure that we call exit after execution completes
+* Since we are at the top of the stack to begin with, there is no place to go
+* The easy solution:
+
+.. code:: nasm
+
+		lea rsi, [rsi + STACK_SIZE - 8]
+		mov [rsi], rdi 	; our function pointer
+		; ...
+		syscall
+		test rax, rax 	; check to see if we are the parent or child
+		jnz .parent		; jump to the end if we are the parent
+		pop rax 		; pop the function pointer (top of the stack)
+		call rax 		; call our thread function!
+		; ...
+		call exit 		; call exit (no place to return)
+	.parent:
+		; ... 			; parent: cleanup/return
+		ret
+	
+
+----
+
+A More Fun Exit!
+================
+
+* We can take the previous code a step further, and add another return address to the stack
+* If we put exit first, we will still be able to transfer control in the same fashion, but don't need to wrap out child function with additional calls
+
+.. code:: nasm 
+
+	lea rsi, [rsi + STACK_SIZE - 8]
+	mov [rsi], exit 	; our exit function
+	sub rsi, 8			; go back just a bit
+	mov [rsi], rdi 		; now our function pointer
+	; ...
+	syscall
+	; ...
+	ret
+
 ----
 
 Join
 ====
+
+* In order to do meaningful work, we need a way to know when a thread is finished
+* Most threading APIs provide some mechanism to do this
+	+ pthread_join (from *nix)
+	+ WaitFor(Single|Multiple)Object(s) (Windows)
+* As Linux threads are actually processes, we can utilize the waitpid syscall to wait for our thread to finish working
 
 ----
 
