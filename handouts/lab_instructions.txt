@@ -1,0 +1,41 @@
+#####################################################################
+# 
+# Using the labs
+# 
+#####################################################################
+
+1.) Required Software
+2.) Building and Running
+
+---------------------------------------------------------------------
+
+1.) List of Required Software
+
+* CMake, version >= 3.2
+* NASM
+* A C(++) compiler, such as clang or gcc
+* GDB
+* Visual Studio 2015 (Windows labs), and NASM for Windows
+
+2.) Building and Running
+
+CMake Projects
+--------------
+
+  The bulk of the labs are all set up to use CMake to build/run,
+and should just require the following sequence of commands:
+
+	cd project_dir
+	cmake .
+	cmake --build .
+	./labX
+
+Windows Projects
+----------------
+
+   The Windows-specific labs are all bundled with a VS2015 solution file,
+which expects to find NASM in the solution directory (This will likely be
+ported to CMake in the future). The project should be buildable either via
+Visual Studio, or by running the following command:
+
+	"%VS140COMNTOOLS%vsvars32.bat" && msbuild <solution file>

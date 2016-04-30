@@ -553,8 +553,7 @@ Safe memory access
 
 * Think in terms of "transactions"
 * The lock prefix
-* Some special properties of xchg
-* Introduction cmpxchg
+* Some instructions, such as xchg, implicitly lock
 
 ----
 
@@ -583,6 +582,65 @@ Clone
 
 ----
 
+Flags
+=====
+
+Some flags we'll want for our thread library:
+
+.. code:: c
+
+	#define CLONE_VM      0x00000100 /* Set if VM shared between processes.  */
+	#define CLONE_FS      0x00000200 /* Set if fs info shared between processes.  */
+	#define CLONE_FILES   0x00000400 /* Set if open files shared between processes.  */
+	#define CLONE_SIGHAND 0x00000800 /* Set if signal handlers shared.  */
+	#define CLONE_THREAD  0x00010000 /* Set to add to same thread group.  */
+
+----
+
+Basic Steps to Success
+======================
+
+1.) Allocate Stack Space
+2.) Call Clone
+3.) Transfer Control to Intended function
+
+---- 
+
+Allocating Stack Space
+======================
+
+* The stack grows down, and thus we need to give the high part of the new stack segment to clone
+* mmap is the best choice to do this, as it has flags that let us specify that we wish to use the allocated memory as a thread stack:
+
+.. code:: c
+
+	#define MAP_GROWSDOWN	0x0100
+
+----
+
+Calling Clone
+=============
+
+* As seen above, clone has several arguments
+* For our purposes, only two are really useful: the flags argument (RDI), and a pointer to our new stack
+* We'll need to get to the end of the new stack:
+
+.. code:: nasm
+
+	lea rcx, [rcx + STACK_SIZE]  ; assuming rcx contains a pointer to our newly allocated stack segment
+
+----
+
+Running the Thread Function
+===========================
+
+----
+
+Join
+====
+
+----
+
 Making Atomic adds and Comparisons
 ==================================
 
@@ -601,9 +659,15 @@ Creating a Simple Spinlock
 
 .. code:: nasm
 
-	lock bts
-	; ...
-	lock btr
+	lock_func:
+		; ...
+		lock bts
+		; ...
+	
+	unlock_func:
+		; ...
+		lock btr
+		; ...
 
 ----
 

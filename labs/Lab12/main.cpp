@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdint.h>
-#include <fcntl.h>
+#include <sched.h>
 
 extern "C" size_t first_func(int*, int*, int*);
 extern "C" size_t second_func(int*, int*, int*);
@@ -60,6 +60,6 @@ int main(int argc, char** argv)
     first_test();
     second_test();
     third_test();
-    S_IRUSR
+    CLONE_FILES
     return 0;
 }
