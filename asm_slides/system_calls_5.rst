@@ -75,12 +75,15 @@ atoi
 		len = strlen(c);
 		--len;
 		while(len >= 0) {
-			// subtract 0x30 (the difference between the number and its 
-			// ordinal value as an ASCII character), multiply by the step,
+			// subtract 0x30 (the difference 
+			// between the number and its 
+			// ordinal value as an ASCII character),
+			// multiply by the step,
 			// and add.
 			accum += (c[len] - 0x30) * step;
 			--len;
-			// Move up by a factor of 10. First: 1's place, then 10's, etc.
+			// Move up by a factor of 10. 
+			// First: 1's place, then 10's, etc.
 			step *= 10;
 		}
 
@@ -203,7 +206,7 @@ Implementing sys_exit
 .. code:: nasm
 
 	mov rax, 60  ; the syscall number (in this case exit)
-	xor rdi, rdi ; the first argument in the syscall (in this case, the exit code)
+	xor rdi, rdi ; argument 1, the exit code
     syscall 
 	ret
 
@@ -285,18 +288,18 @@ Arguments
 
 .. code:: nasm
 
-	%define PROT_READ	0x1		; Page can be read.  
-	%define PROT_WRITE	0x2		; Page can be written.  
-	%define PROT_EXEC	0x4		; Page can be executed.  
-	%define PROT_NONE	0x0		; Page can not be accessed.  
+	%define PROT_READ	0x1	 ; Page can be read.  
+	%define PROT_WRITE	0x2	 ; Page can be written.  
+	%define PROT_EXEC	0x4	 ; Page can be executed.  
+	%define PROT_NONE	0x0	 ; Page can not be accessed.  
 
 * Flags (need to be OR'd together)
 
 .. code:: nasm
 
-	%define MAP_ANONYMOUS	0x20		; Don't use a file.  
+	%define MAP_ANONYMOUS	0x20  ; Don't use a file.  
 	; ... 
-	%define MAP_PRIVATE		0x02		; Changes are private.  
+	%define MAP_PRIVATE		0x02  ; Changes are private.  
 
 ----
 
@@ -381,7 +384,7 @@ mmap - Some new flags
 
 .. code:: nasm
 
-	%define MAP_SHARED	0x01		; Share changes.  
+	%define MAP_SHARED	0x01  ; Share changes.  
 
 ----
 
@@ -451,8 +454,8 @@ Msync options
 .. code:: nasm
 
 	; Flags to `msync'.  
-	%define MS_ASYNC	1		; Sync memory asynchronously.  
-	%define MS_SYNC		4		; Synchronous memory sync.  
+	%define MS_ASYNC	1  ; Sync memory asynchronously.  
+	%define MS_SYNC		4  ; Synchronous memory sync.  
 
 Open options:
 
@@ -460,9 +463,9 @@ Open options:
 
 .. code:: nasm
 
-	%define O_RDONLY	     00
-	%define O_WRONLY	     01
-	%define O_RDWR		     02
+	%define O_RDONLY	   00
+	%define O_WRONLY	   01
+	%define O_RDWR		   02
 
 
 * Zero or more of the following may be chosen:
@@ -571,10 +574,6 @@ The clone Syscall
 Clone
 =====
 
-// TODO: Talk about using the syscall; similarities to fork(), etc.
-// Show some basic uses of clone... talk about setting up new stack,
-// illustrate sharing, setting up register values, etc
-
 +--------+------+------------------+-------------------+-----------+------------+
 |Syscall | RAX  |  RDI             |  RSI              | RDX       | R10        | 
 +--------+------+------------------+-------------------+-----------+------------+
@@ -590,11 +589,11 @@ Some flags we'll want for our thread library:
 
 .. code:: nasm
 
-	%define CLONE_VM      0x00000100 ; Set if VM shared between processes.  
-	%define CLONE_FS      0x00000200 ; Set if fs info shared between processes.  
-	%define CLONE_FILES   0x00000400 ; Set if open files shared between processes.  
-	%define CLONE_SIGHAND 0x00000800 ; Set if signal handlers shared.  
-	%define CLONE_THREAD  0x00010000 ; Set to add to same thread group.  
+	%define CLONE_VM      0x00000100 ; VM shared between procs.  
+	%define CLONE_FS      0x00000200 ; fs info shared  
+	%define CLONE_FILES   0x00000400 ; open files shared 
+	%define CLONE_SIGHAND 0x00000800 ; signal handlers shared.  
+	%define CLONE_THREAD  0x00010000 ; add to same thread group.  
 
 ----
 
@@ -628,7 +627,9 @@ Calling Clone
 
 .. code:: nasm
 
-	lea rsi, [rsi + STACK_SIZE]  ; assuming rsi contains a pointer to our newly allocated stack segment
+	; assuming rsi contains a pointer to 
+	; our newly allocated stack segment
+	lea rsi, [rsi + STACK_SIZE]  
 
 ----
 
@@ -711,14 +712,14 @@ Exit
 		mov [rsi], rdi 	; our function pointer
 		; ...
 		syscall
-		test rax, rax 	; check to see if we are the parent or child
-		jnz .parent		; jump to the end if we are the parent
-		pop rax 		; pop the function pointer (top of the stack)
-		call rax 		; call our thread function!
+		test rax, rax ; check to see if we are parent/child
+		jnz .parent	; jump to end if we are the parent
+		pop rax ; pop the function pointer (top of stack)
+		call rax 	; call our thread function!
 		; ...
-		call exit 		; call exit (no place to return)
+		call exit 	; call exit (no place to return)
 	.parent:
-		; ... 			; parent: cleanup/return
+		; ... 		; parent: cleanup/return
 		ret
 	
 

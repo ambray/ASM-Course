@@ -101,8 +101,9 @@ Basic Use
 
 .. code:: nasm
 
-	; clearing the high bits, we're only using what's in rax!
-	mov rdx, 0 ; there's a better way to do this, but we haven't learned it yet!
+	; clearing the register where the
+	; high bits would be stored, we're only using what's in rax!
+	mov rdx, 0 
 	mov rax, 2
 	mov rcx, 10
 	div rcx    ; rax now contains 5
@@ -233,9 +234,9 @@ Basic Use
 
 .. code:: nasm
 
-	mov rax, 1		; 1 is now stored in rax.
-	push rax		; 1 is now stored at the top of the stack
-	pop rcx			; rcx now contains 1
+	mov rax, 1	; 1 is now stored in rax.
+	push rax	; 1 is now stored at the top of the stack
+	pop rcx		; rcx now contains 1
 
 ----
 
@@ -435,16 +436,16 @@ Example:
 
 .. code:: nasm
 
-	mov rax, 0		; rax now contains 00000000
-	not rax			; rax is now all 1's (or 0xffffffff)
+	mov rax, 0	; rax now contains 00000000
+	not rax		; rax is now all 1's (or 0xffffffff)
 
 Similarly:
 
 .. code:: nasm
 
-	mov rcx, 1		; rcx now contains 1
-	not rcx			; rcx now contains: 
-				; 0xfffffffe (all 1's except for the first bit) 
+	mov rcx, 1	; rcx now contains 1
+	not rcx		; rcx now contains: 
+			; 0xfffffffe (all 1's minus the first bit) 
 
 ----
 

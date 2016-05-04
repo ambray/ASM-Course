@@ -146,7 +146,7 @@ call and ret
 .. code:: nasm
     
     mov rax, 1
-    call label1 ; transfers control to label1, and pushes RIP to the stack
+    call label1 ; push RIP, jump to label1
     jmp label2 
     label1:
         ror rax, 1
@@ -182,6 +182,26 @@ Our stack frame does something like this:
 .. image:: images/section_3_call_ret_pt2.jpg
 
 popping off the old RBP, then popping the return pointer, and jumping to it (effectively "pop rip")
+
+----
+
+A Side Note About Functions
+===========================
+
+* Typically store the stack pointer ((E|R)SP) at the top of the function
+* If stored, must be (re)stored before returning
+    + If we don't, our stack location will be off
+    + If left at the top of the stack, we will return ONTO the stack!
+* This is not always done, as in FPO (Frame Pointer Optimization/Omission)
+* Functions will be covered in more depth later
+
+.. code:: nasm
+
+    myfunc:
+        mov rbp, rsp
+        ; ...
+        pop rbp
+        ret
 
 ----
 
@@ -250,7 +270,8 @@ A simple check to see if the result of an operation is 0:
 
     xor rax, rax
     test rax, rax
-    jz .end       ; Because the zero flag is set here, we jump to the end
+    ; Because the zero flag is set here, we jump to the end
+    jz .end       
     mov rsi, rax  ; not executed
     ; ...
     .end:
@@ -363,7 +384,8 @@ Prefix Examples
     xor rax, rax    ; rax is now 0
     mov rcx, 20     ; rcx now contains 20
     mov rdi, _my_string_buf
-    rep stosb       ; set the first 20 bytes of _my_string_buf to 0
+    rep stosb       ; Continue to store 0 till rcx
+                    ; is 0
 
 * Conditional:
 
@@ -531,7 +553,7 @@ Microsft Conventions: fastcall
 * First two arguments (from left to right) passed via registers (ECX and EDX)
 * Remaining arguments pushed on the stack (right to left, as with cdecl and stdcall)
 * Cleanup is performed by callee (as with stdcall)
-* Name mangling is similar to stdcall, but an additional "@" is prepended (e.g., "@myfunc@8")
+* Name mangling is similar to stdcall, but an additional "@" is prepended (e.g., "_@myfunc@8")
 
 ----
 
@@ -634,7 +656,8 @@ Calling strlen
 
     extern strlen
     
-    mystring db "this is a string", 0x00 ; ensure NULL termination!
+    ; ensure NULL termination!
+    mystring db "this is a string", 0x00 
 
     call_strlen:
         mov rdi, mystring

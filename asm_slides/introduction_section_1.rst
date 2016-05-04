@@ -283,7 +283,7 @@ Now, we'll access the data stored at the address, and copy it into rcx
 
 .. code:: nasm
 	
-	mov rcx, [rcx] ; copy the data from location 0xc0ffee into rcx
+	mov rcx, [rcx] ; copy the data from addr 0xc0ffee into rcx
 
 .. image:: images/section_1_pointers_third_stage.jpg	
 
@@ -292,13 +292,14 @@ Please note that this replaces the old value in rcx, which was just the address 
 ----
 
 Now, for our first instruction...
+=================================
 
 ----
 
 NOP
 ===
 
-* Does nothing!
+* Does nothing! (Sort of)
 * Used for padding/alignment/timing reasons
 * Idempotent instruction (doesn't affect anything else in the system)
 
@@ -368,7 +369,8 @@ Basic Use
 .. code:: nasm
 
 	xchg rax, rcx   ; exchange two register values
-	xchg rax, [rcx] ; exchange a register value with a value stored in memory
+	; exchange a register value with a value stored in memory
+	xchg rax, [rcx] 
 
 
 ----
@@ -559,4 +561,5 @@ Structures
 	endstruc
 
 	; ...
-	mov rax, [rdi + MyStruct.field3] ; This will be equivalent to: mov rax, [rdi+8]
+	; This will be equivalent to: mov rax, [rdi+8]
+	mov rax, [rdi + MyStruct.field3] 

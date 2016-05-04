@@ -30,8 +30,28 @@
 	font-size: 8pt;
 }
 
+pre {
+	@include border-style(thin thin thin);
+	@include border-top-radius(5px);
+	@include border-right-radius(5px);
+	@include border-bottom-radius(5px);
+	@include border-left-radius(5px);
+	@include border-color(#70696e #70696e #70696e #70696e);
+	@include padding(10px 40px 10px 10px);
+	background-color: #e9f4fc;
+}
+
+pre > span {
+	@include word-wrap;
+}
+
+h1 {
+	@include text-decoration-line(underline);
+	color: #6a5f51;
+}
+
 body {
-	@include background(linear-gradient(#f0e6c7, #f0e6c7) left repeat);
+	@include background(linear-gradient(#63747e, #a9c0c0) left repeat);
 	font-size: modular-scale(2);
 }
 
