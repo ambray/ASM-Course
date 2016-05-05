@@ -257,10 +257,33 @@ Allocating Memory
 
 ----
 
-Allocator Strategies
-====================
+About Allocators
+================
 
-// TODO: Talk about some allocator strategies to use
+* Many different strategies for heap management
+	+ Lots of special cases to consider
+	+ Multithreading adds more concerns (we'll talk more about this later)
+* Our strategy here will try to remain simple
+
+----
+
+Our Allocator Strategy
+======================
+
+* Getting new memory from the kernel every time we need to allocate is very inefficient
+* We'll want to build a list of unused (or "free") chunks to hand out when allocations are requested
+* When a chunk is requested, we can check the free list first (if initialized), to see if we have something that will work
+* If not, we'll need to allocate memory
+
+----
+
+Asking for More
+===============
+
+* We can actually ask for memory from the kernel in two ways:
+	+ mmap - This is the more "modern" approach; we can ask the kernel for more memory by requesting an anonymous page mapping (we'll be discussing mmap in much greater detail over the next few sections)
+	+ brk - We won't really touch this too much; it lets you extend or shrink the end of the memory mappings in your program
+* Some additional initialization logic can also be added to _start, if needed
 
 ----
 
@@ -325,6 +348,150 @@ munmap
 +------+-----------------+-------------------+
 | 11   | addr            | length            |
 +------+-----------------+-------------------+
+
+----
+
+Problem Description
+===================
+
+Some pseudo-C to describe our malloc strategy:
+
+Some initial structure information:
+
+.. code:: c
+
+	/** 
+	* Our free list node structure definition.
+	* In this case, just a simple linked list.
+	*/
+	struct heap_node;
+	typedef struct heap_node {
+		struct heap_node* next;
+		unsigned long size;
+		unsigned char data[1];
+	} heap_node;
+
+	typedef struct free_list {
+		heap_node* head;
+	} free_list;
+
+	/* Add structure overhead to our alloc size */
+	#define HEAP_ALLOC_SIZE(x)	(sizeof(heap_node) + x)
+	/* The beginning of our free list; head starts out NULL */
+	free_list free_start;
+
+----
+
+
+Problem Description
+===================
+
+.. code:: c
+	
+	/* NOTE: n is the allocation size requested */
+	heap_node* check_free_list(unsigned long n)
+	{
+		heap_node* prev = NULL;
+		heap_node* current = NULL;
+
+		/* 
+		* If our list is empty, we need to
+		* allocate. 
+		*/
+		if(NULL == free_start->head)
+			return NULL;
+
+		current = free_start->head;
+		prev = current;
+		if (current->size >= n) {
+			/* Remove from the list */
+			free_start->head = (current->next != NULL) ? 
+					&current->next : NULL;
+			return current;
+		} else if (current->next == NULL) {
+			return NULL;
+		}
+
+		do {
+		/* Walk the list, find and remove a
+		* chunk of at least size n 
+		*/
+		} while(current->next);
+		return NULL;
+	}
+
+----
+
+Problem Description
+===================
+
+.. code:: c
+
+	void* allocate(unsigned long n)
+	{
+		heap_node* tmp = NULL;
+		unsigned long alloc_size = 0;
+
+		/* 
+		* We'll check the free list first,
+		* and see if there is a suitable chunk
+		*/ 
+		if(NULL != (tmp = check_free_list(n))) {
+			/* We found a match! */
+			return (void*)tmp->data;
+		}
+
+		/* 
+		* Since we need to allocate, we have
+		* to add enough to our header to
+		* account for our heap_node struct!
+		*/
+		alloc_size = HEAP_ALLOC_SIZE(n);
+		/* We'll allocate some space */
+		if(NULL == (tmp = mmap_anon_page(alloc_size))) {
+			return NULL;
+		}
+
+		tmp->size = n;
+		tmp->next = NULL;
+		/* Return the beginning of the data buffer */
+		return (void*)tmp->data;
+	}
+
+----
+
+
+Problem Description
+===================
+
+.. code:: c
+
+	void deallocate(void* p)
+	{
+		heap_node* node = NULL;
+
+		if(NULL == p)
+			return;
+		/* 
+		* Subtract the size of the bookkeeping struct to get 
+		* back to the top of the heap_node structure in 
+		* memory
+		*/
+		node = (heap_node*)(((char*)p) - sizeof(heap_node));
+		/* Zero the user provided data */
+		memset(node->data, 0, node->size);
+		/* Add the node to the free list */
+		node->next = &free_start->head;
+		free_start->head = node;
+	}
+
+----
+
+Additional Steps to Consider
+============================
+
+* Keep track of the number of items on the free list; release some if it becomes too large
+* Keep multiple free lists based on chunk size
 
 ----
 
@@ -749,7 +916,7 @@ Join
 
 * In order to do meaningful work, we need a way to know when a thread is finished
 * Most threading APIs provide some mechanism to do this
-	+ pthread_join (from *nix)
+	+ pthread_join (from \*nix)
 	+ WaitFor(Single|Multiple)Object(s) (Windows)
 * As Linux threads are actually processes, we can utilize the waitpid syscall to wait for our thread to finish working
 
