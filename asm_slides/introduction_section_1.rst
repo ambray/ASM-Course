@@ -154,20 +154,34 @@ Opcodes
 :data-y: r2000
 :data-rotate-y: 0
 
-Syntax Differences
-==================
+Assemblers and Syntax
+=====================
 
-* Intel Syntax
+* A number of different options exist for assemblers
+	+ GAS - the GNU Assembler
+	+ nasm/yasm - The Netwide Assembler/Yet another Assembler (a rewrite of NASM)
+	+ masm - the Microsoft assembler
+* Most have special quirks and slight differences in how syntax is handled (though they are similar)
+* This course will focus on NASM, which uses Intel syntax
+
+----
+
+Syntax Differences - Some Examples
+==================================
+
+* Intel Syntax: Used by NASM/YASM and others
 
 .. code:: nasm
 
 	mov eax, 0x01
 
-* AT&T Syntax
+* AT&T Syntax: Used by GAS and others
 
 .. code:: gas
 
 	movl $0x01, %eax
+
+* Other flavors also exist
 
 .. note::
 
@@ -177,12 +191,20 @@ Syntax Differences
 
 :data-y: r2000
 
+Byte Ordering 
+=============
+
+* Determines the order bytes appear in memory
+* Big Endian puts the most significant value on the right (e.g., the memory address: 0x10203040 would appear as: 0x10 0x20 0x30 0x40)
+* Little Endian puts the most significant value on the left (e.g., the memory address: 0x10203040 would appear as: 0x40 0x30 0x20 0x10)
+
+----
 
 Byte Ordering
 =============
 
 * x86(_64) is little Endian
-* Most significant byte (not bit) on the left
+* Again, Most significant byte (not bit) on the left
 
 In memory, this address:
 
@@ -222,6 +244,28 @@ Byte Ordering
 
 ----
 
+The Memory Hierarchy
+====================
+
+From Fastest Access to Slowest:
+
+* Registers
+* Cache (L1/L2/L3)
+* System Memory
+* Disk
+
+----
+
+Registers
+=========
+
+* Special hardware structures on the processor
+* Some are general purpose (e.g., can store any type of data)
+* Others are specialized, and may contain status codes, flags, etc., or be associated with specific hardware 
+* Limited in number
+
+----
+
 General Purpose Registers
 =========================
 
@@ -243,7 +287,6 @@ x86 and x64 Registers
 
 * rbp/ebp - Base Pointer
 * rsp/esp - Stack Pointer
-* rip/eip - Instruction Pointer (Program Counter)
 
 .. note::
 
@@ -255,10 +298,11 @@ x86 and x64 Registers
 
 ----
 
-x64 Registers
-=============
+Registers (cont'd)
+==================
 
-* r8 - r15
+* rip/eip - Instruction Pointer (Program Counter)
+* Additional x86_64 Registers: r8 - r15
 
 ----
 
