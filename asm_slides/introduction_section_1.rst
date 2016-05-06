@@ -70,10 +70,38 @@ Understanding Assembly
 ======================
 
 * What is Assembly?
+	+ A set of "instructions" (human-friendly) that map to "opcodes" (processor-friendly)
+	+ Typically very hardware-specific
+* Why use assembly?
+	+ Sometimes (now much more rarely) for performance
+	+ Often to utilize otherwise unexposed hardware features
+	+ Some operations can't easily be expressed in higher level languages (such as C)
 
 .. note::
 
 	Collection of mnemonics that translate into instructions the CPU can execute. Assembly still has a variety of uses, from debugging and reverse engineering, to accessing instructions not exposed via C (such as hardware virtualization).
+
+----
+
+Assembly Instructions
+=====================
+
+* Typically consist of an instruction of some kind, and some operands
+* Operands can consist of several things, to include:
+	+ Registers - Processor-contained storage devices (we'll cover these in much greater depth soon)
+	+ Memory Addresses
+	+ Immediate Values - Literal numbers (such as 1, 2, or 10) 
+* Other data types and some prefixes (which modify what the instruction does) also exist, some of which we'll talk about later in the course
+
+----
+
+Opcodes
+=======
+
+* One or more bytes that the processor decodes (and executes)
+* Typically direct translations from assembly language instructions
+* x86 and x86_64 instructions are variable length
+* Syntax is (slightly) complicated
 
 ----
 
@@ -467,16 +495,35 @@ GDB
 	+ x addr
 	+ x $<register> - examines the memory address pointed to by the register
 
+----
+
+GDB Formatting
+==============
+
+* The "f" in x/nfu
 * Format options include:
 	+ s - For a NULL-terminated string
 	+ i - For a machine instruction
 	+ x - For hexidecimal (the default, which changes when x is used)
 
+* Example: Disassembling at RIP
+
+.. code:: bash
+
+	(gdb) x/i $rip
+
+----
+
+GDB Unit Sizes
+==============
+
+* The "u" in x/nfu
 * Unit size options are a bit confusing in the context of x86(_64) assembly, and include:
 	+ b - bytes
 	+ h - Halfwords (equivalent to "word" in x86(_64) asm; e.g., 2 bytes)
 	+ w - Words (4 bytes, equivalent to dwords)
 	+ g - Giant words (8 bytes, equivalent to qwords)
+
 
 .. note::
 

@@ -38,7 +38,8 @@ pre {
 	@include border-left-radius(5px);
 	@include border-color(#70696e #70696e #70696e #70696e);
 	@include padding(10px 40px 10px 10px);
-	background-color: #e9f4fc;
+	background-color: #ffffff;
+	box-shadow: 2px 2px 2px 5px rgba(0,0,0,0.3);
 }
 
 pre > span {
@@ -46,12 +47,23 @@ pre > span {
 }
 
 h1 {
-	@include text-decoration-line(underline);
+	text-align: center;
+	font-family: Montserrat, Helvetica Neue, Helvetica, Arial, sans-serif;
 	color: #6a5f51;
+	text-shadow: 1px 1px 2px black;
+}
+
+div {
+	font-family: Arial, Helvetica, sans-serif;
+	text-shadow: 0.5px 0.5px 1px #70696e;
+}
+
+li {
+	@include padding(1em null null null);
 }
 
 body {
-	@include background(linear-gradient(#63747e, #a9c0c0) left repeat);
+	@include background(radial-gradient(#e9f4fc, #a9c0c0));
 	font-size: modular-scale(2);
 }
 
