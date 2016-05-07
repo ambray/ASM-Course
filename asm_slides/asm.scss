@@ -1,14 +1,19 @@
 @import "bourbon/bourbon";
 
-.split-table td {
-	padding: 10px;
+
+.split-table table {
 	@include border-top-radius(5px);
 	@include border-bottom-radius(5px);
 	@include border-left-radius(5px);
 	@include border-right-radius(5px);
+	@include border-style(thick);
+	box-shadow: 2px 2px 2px 5px rgba(0,0,0,0.3);
+}
+
+.split-table td {
+	padding: 10px;
 	@include border-style(solid);
 } 	
-
 
 .shrink-table td {
 	font-size: 10pt;	
@@ -46,6 +51,8 @@
 }
 
 pre {
+	color: black;
+	text-shadow:  0.5px 0.5px 1px #eaf2f4;
 	@include border-style(thin thin thin);
 	@include border-top-radius(5px);
 	@include border-right-radius(5px);
@@ -63,14 +70,13 @@ pre > span {
 
 h1 {
 	text-align: center;
-	font-family: Montserrat, Helvetica Neue, Helvetica, Arial, sans-serif;
-	color: #6a5f51;
-	text-shadow: 1px 1px 2px black;
+	font-family: Palatino Linotype, Book Antiqua, Palatino, serif;
+	color: #110c3a;
 }
 
 div {
 	font-family: Arial, Helvetica, sans-serif;
-	text-shadow: 0.5px 0.5px 1px #70696e;
+	text-shadow: 0.5px 0.5px 2px black; 
 }
 
 li {
@@ -78,7 +84,8 @@ li {
 }
 
 body {
-	@include background(radial-gradient(#e9f4fc, #a9c0c0));
+	@include background(radial-gradient(#eaeaea, #eaeaeb));
 	font-size: modular-scale(2);
+	color: #110c3a;
 }
 
