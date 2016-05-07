@@ -147,6 +147,15 @@ Lab 3
 
 Arithmetic Operations
 
+* Copy the Lab3 folder (and its contents)
+* Modify the \*.nasm file (Each function should have a comment block - lines starting with ';' containing instructions)
+* Build and run using the following commands:
+
+.. code:: bash
+
+	~/Desktop/Lab3 $ cmake . && cmake --build .
+	~/Desktop/Lab3 $ ./lab3
+
 ----
 
 :data-rotate: 90
@@ -268,6 +277,15 @@ Lab 4
 =====
 
 Stack Operations
+
+* Copy the Lab4 folder (and its contents)
+* Modify the \*.nasm file (Each function should have a comment block - lines starting with ';' containing instructions)
+* Build and run using the following commands:
+
+.. code:: bash
+
+	~/Desktop/Lab4 $ cmake . && cmake --build .
+	~/Desktop/Lab4 $ ./lab4
 
 ----
 
@@ -496,3 +514,13 @@ Lab 5
 =====
 
 Bit operations
+
+
+* Copy the Lab5 folder (and its contents)
+* Modify the \*.nasm file (Each function should have a comment block - lines starting with ';' containing instructions)
+* Build and run using the following commands:
+
+.. code:: bash
+
+	~/Desktop/Lab5 $ cmake . && cmake --build .
+	~/Desktop/Lab5 $ ./lab5

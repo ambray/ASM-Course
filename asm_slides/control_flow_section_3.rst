@@ -93,6 +93,16 @@ Lab 6
 
 Flag manipulation...
 
+
+* Copy the Lab6 folder (and its contents)
+* Modify the \*.nasm file (Each function should have a comment block - lines starting with ';' containing instructions)
+* Build and run using the following commands:
+
+.. code:: bash
+
+    ~/Desktop/Lab6 $ cmake . && cmake --build .
+    ~/Desktop/Lab6 $ ./lab6
+
 ----
 
 Control Flow
@@ -324,6 +334,16 @@ Lab 7
 
 Execution control flow...
 
+
+* Copy the Lab7 folder (and its contents)
+* Modify the \*.nasm file (Each function should have a comment block - lines starting with ';' containing instructions)
+* Build and run using the following commands:
+
+.. code:: bash
+
+    ~/Desktop/Lab7 $ cmake . && cmake --build .
+    ~/Desktop/Lab7 $ ./lab7
+
 ----
 
 String Instructions
@@ -420,6 +440,15 @@ Lab 8
 =====
 
 String Operations
+
+* Copy the Lab8 folder (and its contents)
+* Modify the \*.nasm file (Each function should have a comment block - lines starting with ';' containing instructions)
+* Build and run using the following commands:
+
+.. code:: bash
+
+    ~/Desktop/Lab8 $ cmake . && cmake --build .
+    ~/Desktop/Lab8 $ ./lab8
 
 ----
 
@@ -702,3 +731,29 @@ Lab 9
 
 Functions
 
+
+* Copy the Lab9 folder (and its contents)
+* Modify the \*.nasm file (Each function should have a comment block - lines starting with ';' containing instructions)
+* Build and run using the following commands:
+
+.. code:: bash
+
+    ~/Desktop/Lab9 $ cmake . && cmake --build .
+    ~/Desktop/Lab9 $ ./lab9
+
+----
+
+Windows Functions Lab
+=====================
+
+Functions - Calling Conventions (x86)
+
+* Copy the WinFunctions folder to your Windows system
+* Copy the nasm binary to WinFunctions\\ASM\\nasm.exe
+* Edit WinLab.nasm under WinFunctions\\ASM\\ASM\\WinLab.nasm
+* build via VS2015 (as normal), or via msbuild using the following command:
+
+.. code:: 
+
+    C:\..\WinFunctions\ASM> "%VS140COMNTOOLS%vsvars32.bat" 
+    C:\..\WinFunctions\ASM> msbuild ASM.sln

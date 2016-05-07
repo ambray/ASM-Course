@@ -26,6 +26,21 @@
 	height: auto;
 }
 
+.shrink-image img {
+	width: 50%;
+	height: auto;
+}
+
+.block-image img {
+	background-color: #ffffff;
+	@include border-top-radius(5px);
+	@include border-bottom-radius(5px);
+	@include border-left-radius(5px);
+	@include border-right-radius(5px);
+	@include border-style(solid);
+	box-shadow: 2px 2px 2px 5px rgba(0,0,0,0.3);
+}
+
 .flex-image p {
 	font-size: 8pt;
 }

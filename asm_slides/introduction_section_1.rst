@@ -244,6 +244,15 @@ Byte Ordering
 
 ----
 
+Memory: The 10,000 Foot View
+============================
+
+* Various Memory Components take differing amounts of time to access
+* Most higher level languages (such as C) abstract this away, the developer is not really exposed to it
+* Assembly gives you a bit more control (though some things are still hidden on most modern platforms)
+
+----
+
 The Memory Hierarchy
 ====================
 
@@ -256,9 +265,53 @@ From Fastest Access to Slowest:
 
 ----
 
+Virtual Memory
+==============
+
+* Hardware allows abstraction of memory addressing
+* Most addressing deals with virtual addresses, which are translated (via lookup table) to physical addresses
+* More than one "view" of a physical memory segment can exist (in different processes)
+* Each user mode process appears to have a full range of addressable memory and resources
+* Most modern OSes support paging, allowing us to pretend we have a much greater amount of physical memory than actually exists
+
+
+.. note::
+
+	We will discuss virtual memory and memory mappings in general later on, when we discuss specific hardware features
+
+----
+
+:class: shrink-image block-image
+
+Process Memory Layout
+=====================
+
+A Very High level view:
+
+.. image:: ./images/Process_Layout.svg
+
+
+----
+
+Process Memory Layout
+=====================
+
+* Stack Segments typically grown from high to low memory addresses
+* Modules in the previous diagram indicate executable files loaded into the process space; some examples include:
+	+ glibc (more specifically, the .so containing the libc code)
+	+ kernel32.dll
+	+ ntdll.dll
+	+ Currently running executable
+* Heap sections and Anonymous Mappings - Sections of addressable memory
+* Other file mappings may also exist (though not in the diagram)
+* Kernel memory - not accessible from user mode (where most of our applications live)
+
+----
+
 Registers
 =========
 
+* Assembly programming gives us total control over access to these
 * Special hardware structures on the processor
 * Some are general purpose (e.g., can store any type of data)
 * Others are specialized, and may contain status codes, flags, etc., or be associated with specific hardware 
@@ -311,8 +364,21 @@ Registers (cont'd)
 Register Data and Pointers
 ==========================
 
-* Registers can contain up to pointer-sized amounts of data (4 bytes on 32 bit, 8 on 64)
-* Registers can also contain memory addresses (pointers) to blocks of data residing elsewhere in the process.
+* General Purpose Registers can contain up to pointer-sized amounts of data (4 bytes on 32 bit, 8 on 64)
+* They can also contain memory addresses (pointers) to blocks of data residing elsewhere in the process.
+* Addresses can be manipulated via addition, subtraction, multiplication, etc
+* Square brackets dereference (access the stuff stored AT the memory address)
+
+Example:
+
+.. code:: nasm
+
+	; A register - we will be operating on whatever 
+	; happens to be stored in it
+	rax 
+	; We are attempting to access the stuff stored 
+	; at the address in rax (dereference)
+	[rax] 
 
 ----
 
@@ -372,8 +438,124 @@ NOP
 ===
 
 * Does nothing! (Sort of)
+	+ On x86, actually translates to xchg eax, eax
+ 	+ On x86_64, it no longer maps to that, but just does nothing
 * Used for padding/alignment/timing reasons
 * Idempotent instruction (doesn't affect anything else in the system)
+* One-byte NOP translates to the opcode: 0x90
+
+----
+
+Debugging Assembly
+==================
+
+* We will be using the GNU Project Debugger (GDB)
+* Command Line Debugger, provides a large set of features
+	+ Natively supports Python scripting
+	+ Supports a large number of architectures (and even quite a few languages)
+	+ Provides a Text User Interface (TUI) mode
+
+----
+
+Debugging Assembly (cont'd)
+===========================
+
+* Setting breakpoints programmatically may be difficult at times
+* A good strategy may include applying breakpoints directly in your code for debugging purposes
+* Fortunately, an assembly instruction exists for doing just this:
+
+.. code:: nasm
+
+	int3 ; NOTE: no space between int and 3
+
+Which translates to the following opcode:
+
+.. code:: objdump-nasm
+
+	0xcc
+
+.. note::
+
+  Tips for debugging assembly: keep an eye on registers, use breakpoints liberally!
+
+----
+
+Debugging With GDB
+==================
+
+Preconfiguration:
+
+* .gdbinit provides a way to run a number of setup commands on launch
+* Simply copy the config file to your home directory:
+
+.. code:: bash
+
+	~/Desktop/handouts $ cp sample-gdbinit ~/.gdbinit
+
+Launching a program with GDB:
+
+.. code:: bash
+
+	~/Desktop/Lab1 $ gdb lab1
+	(gdb) run
+	...
+	(gdb) quit
+
+----
+
+GDB
+===
+
+* Basic Use: Generally useful commands
+	+  info - Displays information (in general, or about specific commands)
+	+  help - Can provide context-specific help; e.g., listing available commands/options
+
+* refresh:  will redraw the console window
+
+----
+
+GDB
+===
+
+* Single Stepping (step/s)
+	+ Can also use stepi
+* Stepping Over (next/n)
+	+ Can also use nexti
+
+----
+
+GDB
+===
+
+* Breakpoints (break)
+	+ Allows us to programmatically set breakpoints without modifying application source code
+* info break - shows us information about all currently set breakpoints
+* Removing breakpoints (clear and delete)
+
+Example:
+
+.. code:: bash
+
+	(gdb) break myfunc
+	Breakpoint 1 at 0x4004a4
+	(gdb) info break
+	Num 	Type 		 Disp Enb Address
+	1		breakpoint   keep y   0x00000000004004a4
+	(gdb) delete 1
+	(gdb) info break
+	No breakpoints or watchpoints
+
+.. note:: 
+
+	Demo stepping and using GDB with a sample init file and our opcodes demo
+
+----
+
+Memory Access Instructions
+==========================
+
+* We'll begin looking at instructions to copy and access data from various locations in memory
+* Additionally, we will begin examining address calculation
 
 ----
 
@@ -448,79 +630,38 @@ Basic Use
 ----
 
 
-Debugging
-=========
-
-* Debugger Cheat Sheet
-
-.. code:: nasm
-
-  int3 ; breakpoint
-
-.. note::
-
-  Tips for debugging assembly: keep an eye on registers, use breakpoints liberally!
-
-----
-
-GDB
-===
-
-* Text User Interface
-
-* Basic Use
-  + info
-  + help
-
-* ~/.gdbinit
-
-----
-
-GDB
-===
-
-* Single Stepping (stepi/si)
-* Stepping Over (nexti/ni)
-
-----
-
-GDB
-===
-
-* Breakpoints (break)
-* info break - shows us information about all currently set breakpoints
-* Removing breakpoints (clear and delete)
-
-Example:
-
-.. code:: bash
-
-	(gdb) break myfunc
-	Breakpoint 1 at 0x4004a4
-	(gdb) info break
-	Num 	Type 		 Disp Enb Address
-	1		breakpoint   keep y   0x00000000004004a4
-	(gdb) delete 1
-	(gdb) info break
-	No breakpoints or watchpoints
-
-.. note:: 
-
-	Demo stepping and using GDB with a sample init file and our opcodes demo
-
-----
-
 :data-rotate-y: 180
 
 Lab 1
 =====
 
-Using mov, lea, and xchg
+Memory Access
+
+* Copy the Lab1 folder (and its contents)
+* Modify the \*.nasm file (Each function should have a comment block - lines starting with ';' containing instructions)
+* Build and run using the following commands:
+
+.. code:: bash
+
+	~/Desktop/Lab1 $ cmake . && cmake --build .
+	~/Desktop/Lab1 $ ./lab1
 
 ----
 
-x86(_64) data sizes
-===================
+Assembly and Data Types
+=======================
+
+* Slightly different concept than in higher level languages
+	+ Typically just bytes in a buffer
+	+ Data 'type' is really just interpretation
+	+ Generally differentiated by sizes, alignment, and certain bits being set
+* Some operations will preserve special properties in a given data set (such as sign, e.g., +/-)
+* Other operations may expect different alignments in the data they work on, or may have issues with certain values (such as floating point)
+
+----
+
+x86(_64) general data sizes
+===========================
 
 * byte - "smallest" addressable unit
 * word - two bytes
@@ -530,8 +671,8 @@ x86(_64) data sizes
 ----
 
 
-GDB
-===
+GDB: Examining Memory
+=====================
 
 * We can use GDB to examing various places in memory with "x" (for "eXamine")
 * x has several options:
@@ -629,13 +770,22 @@ Lab 2
 
 Using subregisters, accessing smaller values, and zero extending.
 
+* Copy the Lab2 folder (and its contents)
+* Modify the \*.nasm file (Each function should have a comment block - lines starting with ';' containing instructions)
+* Build and run using the following commands:
+
+.. code:: bash
+
+	~/Desktop/Lab2 $ cmake . && cmake --build .
+	~/Desktop/Lab2 $ ./lab2
+
 ----
 
 Structures
 ==========
 
-* NASM provides a concept of a "struct" for convenience
-* More of a macro than a traditional data structure
+* NASM provides a data structure concept for convenience in handling complex data types
+* More of a macro than something truly representative of C-style structs
 * Very useful for keeping track of local variables or parameters (among other things)
 
 ----
