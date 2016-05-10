@@ -53,6 +53,12 @@ Flags we care about now
 * Zero Flag (ZF) - set when an operation that sets the zero flag produces a zero - includes arithmetic and bitshift operations
 * Carry Flag (CF) - set when an arithmetic borrow or carry occurs during add/sub - e.g., the result of an add would have set bit 33 (in x86), or bit 65 (in x86_64)
 	+ also set with some bitshift operations (such as when a bit falls off the end in a shl/shr)
+
+----
+
+Flags we care about now (cont'd)
+================================
+
 * Overflow Flag (OF) - Indicates that sign bit of the result of an operation is different than the sign bits of the operands
 	+ Ex.: Adding two large position numbers ends up producing a negative result (due to overflow)
 * Sign Flag (SF) - Set to indicate the result of an operation is negative
@@ -105,11 +111,17 @@ Flag manipulation...
 
 ----
 
+:data-x: r2500
+:data-y: r0
+:data-rotate-z: 90
+
 Control Flow
 ============
 
 ----
 
+:data-x: r0
+:data-y: r2000
 
 Line Labels
 ===========
@@ -209,11 +221,25 @@ A Side Note About Functions
 
     myfunc:
         mov rbp, rsp
+        push rbp
         ; ...
         pop rbp
         ret
 
 ----
+
+:data-x: r0
+:data-y: r1000
+:data-rotate-z: 180
+
+Conditional Control Flow: Comparisons
+=====================================
+
+----
+
+:data-x: r-2500
+:data-y: r0
+:data-z: r0
 
 cmp
 ===
@@ -346,6 +372,10 @@ Execution control flow...
 
 ----
 
+:data-x: r0
+:data-y: r0
+:data-rotate-x: 90
+
 String Instructions
 ===================
 
@@ -356,6 +386,10 @@ String Instructions
 * All of them have the unit to move/copy/initialize/scan appended to the end (e.g., scasb vs scasw vs scasd, etc)
 
 ----
+
+:data-x: r0
+:data-z: r2500
+
 
 String Instructions - Cont'd
 ============================
@@ -452,6 +486,10 @@ String Operations
 
 ----
 
+:data-x: r0
+:data-y: r0
+:data-z: r0
+:data-rotate-y: 90
 
 Functions
 =========
@@ -459,6 +497,9 @@ Functions
 
 ----
 
+:data-x: r0
+:data-y: r-2500
+:data-z: r0
 
 Calling Conventions: x86
 ========================
@@ -474,8 +515,11 @@ Calling Conventions: x86
         - Also called cdecl
 
 * Other Calling Conventions
-    + Many others exist (such as safecall or pascal) on Windows alone
-    + Only a few will be covered here (outside of passing mention)
+
+.. note::
+   
+    Many others exist (such as safecall or pascal) on Windows alone
+    Only a few will be covered here (outside of passing mention)
 
 ----
 
@@ -522,8 +566,8 @@ Standard call in action - Accessing Parameters:
 .. code:: nasm
 
     _myfunc@8:
-        mov eax, [esp + 4]  ; parameter 1 - above the return pointer
-        mov ecx, [esp + 8]  ; parameter 2 - above param 1
+        mov eax, [esp + 4] ; parameter 1-above the return pointer
+        mov ecx, [esp + 8] ; parameter 2-above param 1
         ; do stuff
         ret 8
 
@@ -612,10 +656,22 @@ Microsoft x64 Calling Convention
 
 * Uses 4 registers to pass the first 4 parameters (RCX, RDX, R8, and R9)
 * Floating point values are passed via SIMD registers (XMM0-3... we'll talk more about this later)
-* Remaining values are added to the stack, BUT
-    + Space must be allocated by the caller for AT LEAST 4 parameters to be stored on the stack, whether they get used or not
-    + Additional arguments are added via the stack, in the location they would normally occur at if all parameters were passed that way (e.g., param 5 would begin at [rsp + 0x20]) 
+* Remaining values are added to the stack
 * Caller's responsibility to clean up (as with __cdecl)
+
+----
+
+
+Shadow Space
+============
+
+* x64 Calling Conventions require stack allocation for passed variables
+* Intent is to allow function being called to immediately spill registers (if desired)
+* Windows ABI requires space to be allocated for 4 registers (regardless of function parameter count)
+* Additional arguments (beyond 4) are added via the stack 
+    + BUT in the location they would normally occur at if all parameters were passed that way 
+    + Example: param 5 would begin at [rsp + 0x20]
+
 
 ----
 
@@ -658,9 +714,10 @@ Microsoft x64 Calling Convention
 Microsoft x64 Calling Convention
 ================================
 
-A good article detailing the Microsoft x64 calling convention can be found on The Old New Thing:
+Some additional reading on x64 calling conventions:
 
 * https://blogs.msdn.microsoft.com/oldnewthing/20040114-00/?p=41053/
+* http://eli.thegreenplace.net/2011/09/06/stack-frame-layout-on-x86-64/
 
 ----
 
@@ -757,3 +814,15 @@ Functions - Calling Conventions (x86)
 
     C:\..\WinFunctions\ASM> "%VS140COMNTOOLS%vsvars32.bat" 
     C:\..\WinFunctions\ASM> msbuild ASM.sln
+
+----
+
+Section Review
+==============
+
+* Flags
+* Jumps
+* Call and ret
+* string instructions
+    + prefix
+* Functions and calling conventions

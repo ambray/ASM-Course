@@ -60,6 +60,5 @@ int main(int argc, char** argv)
     first_test();
     second_test();
     third_test();
-    CLONE_FILES
     return 0;
 }

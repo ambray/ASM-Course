@@ -801,3 +801,17 @@ Structures
 	; ...
 	; This will be equivalent to: mov rax, [rdi+8]
 	mov rax, [rdi + MyStruct.field3] 
+
+----
+
+Section Review
+==============
+
+* Byte Ordering
+* Process Layout
+* Registers
+	+ Stack Pointer
+	+ Base Pointer
+	+ Instruction Pointer
+* Dereferencing Pointers via Register
+* Sub registers

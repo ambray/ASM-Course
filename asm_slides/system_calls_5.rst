@@ -23,7 +23,6 @@ Objectives
 
 * Implement a number of basic standard library functions in assembly
 * Implement some essential data structures in assembly
-* Implement a sorting algorithm in assembly
 * (OPTIONAL) Complete provided bonus labs
 
 ----

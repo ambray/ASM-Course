@@ -524,3 +524,15 @@ Bit operations
 
 	~/Desktop/Lab5 $ cmake . && cmake --build .
 	~/Desktop/Lab5 $ ./lab5
+
+----
+
+Section Review
+==============
+
+* Arithmetic Operations
+* The Stack
+	+ Stack Frames
+	+ Stack Alignment
+* Signed Values and Two's Complement
+* Bit Operations
