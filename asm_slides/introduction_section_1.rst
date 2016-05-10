@@ -70,16 +70,16 @@ Understanding Assembly
 ======================
 
 * What is Assembly?
-	+ A set of "instructions" (human-friendly) that map to "opcodes" (processor-friendly)
+	+ Provides "instructions" (human-friendly) that map to "opcodes" (processor-friendly)
 	+ Typically very hardware-specific
 * Why use assembly?
-	+ Sometimes (now much more rarely) for performance
-	+ Often to utilize otherwise unexposed hardware features
+	+ Performance
+	+ Utilize otherwise unexposed hardware features
 	+ Some operations can't easily be expressed in higher level languages (such as C)
 
 .. note::
-
-	Collection of mnemonics that translate into instructions the CPU can execute. Assembly still has a variety of uses, from debugging and reverse engineering, to accessing instructions not exposed via C (such as hardware virtualization).
+ 
+	Performance is now much less often a reason to use assembly than it was in the past (as compilers have steadily improved, and more features exposed via intrinsics).
 
 ----
 
@@ -88,10 +88,10 @@ Assembly Instructions
 
 * Typically consist of an instruction of some kind, and some operands
 * Operands can consist of several things, to include:
-	+ Registers - Processor-contained storage devices (we'll cover these in much greater depth soon)
+	+ Registers 
 	+ Memory Addresses
-	+ Immediate Values - Literal numbers (such as 1, 2, or 10) 
-* Other data types and some prefixes (which modify what the instruction does) also exist, some of which we'll talk about later in the course
+	+ Immediate (literal) Values
+* Other data types and some prefixes (which modify what the instruction does) also exist
 
 ----
 
@@ -300,11 +300,10 @@ Process Memory Layout
 * Modules in the previous diagram indicate executable files loaded into the process space; some examples include:
 	+ glibc (more specifically, the .so containing the libc code)
 	+ kernel32.dll
-	+ ntdll.dll
 	+ Currently running executable
-* Heap sections and Anonymous Mappings - Sections of addressable memory
-* Other file mappings may also exist (though not in the diagram)
-* Kernel memory - not accessible from user mode (where most of our applications live)
+* Heap sections and Anonymous Mappings
+* Kernel memory
+* Other Items
 
 ----
 
@@ -397,7 +396,7 @@ First, we'll store a pointer (memory address) in rax, and then store some stuff 
 
 ----
 
-Register Data and Pointers - Example (Part 2!)
+Register Data and Pointers - Example (Part 2)
 ==============================================
 
 Now, we'll copy that address into rcx:
@@ -438,8 +437,6 @@ NOP
 ===
 
 * Does nothing! (Sort of)
-	+ On x86, actually translates to xchg eax, eax
- 	+ On x86_64, it no longer maps to that, but just does nothing
 * Used for padding/alignment/timing reasons
 * Idempotent instruction (doesn't affect anything else in the system)
 * One-byte NOP translates to the opcode: 0x90
