@@ -248,28 +248,46 @@ Further Reading (if interested):
 
 ----
 
-Page Tables and Virtual Memory
-==============================
-
-// TODO: Implement
+Other Processor Features
+========================
 
 ----
 
 Processor Security Features
 ===========================
 
-// TODO: Implement
-
-* DEP
+* DEP/NX
 * SMEP/SMAP
 * Page Protection
+* Write Protection
 
 ----
 
 Control Registers
 =================
 
-// TODO: Implement
+* Control CPU enforcement of a variety of features
+* Most security features are enabled in this fashion
+* Requires privileged execution (Ring0) to access
+* Other features (such as hardware virtualization) also enabled in this fashion
+* Feature mappings detailed in the Intel manuals
+
+----
+
+Virtual Memory
+==============
+
+* Allows a virtual abstraction of hardware addresses
+* Paging enabled via CR1
+* Page Table location stored in CR3
+* Tables and Directories provide fast lookup of address translations
+
+----
+
+Page Tables and Directories
+===========================
+
+.. image:: ./images/page_tables.svg
 
 ----
 
@@ -307,6 +325,11 @@ Feature Support
 
 * The instruction behaves similarly on BOTH x86 and x86_64
 
+----
+
+Feature Support (Cont'd)
+========================
+
 * The value in EAX at the time of the CPUID call determines what information comes back
 	+ 0 -> Vender ID String - stored in EBX/EDX/ECX
 	+ 1 -> Returns a bitfield containing supported features
@@ -318,6 +341,16 @@ Lab 10
 ======
 
 MSRs and CPUID
+
+
+* Copy the Lab10 folder (and its contents)
+* Modify the \*.nasm file (Each function should have a comment block - lines starting with ';' containing instructions)
+* Build and run using the following commands:
+
+.. code:: bash
+
+    ~/Desktop/Lab10 $ cmake . && cmake --build .
+    ~/Desktop/Lab10 $ ./lab10
 
 ----
 

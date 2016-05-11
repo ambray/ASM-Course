@@ -310,8 +310,9 @@ Two's Complement
 
 ----
 
-:data-rotate-z: 0
-:data-y: r100
+:data-y: r2500
+:data-z: r0
+:data-x: r0
 
 Two's Complement
 ================
@@ -319,6 +320,25 @@ Two's Complement
 * Invert the bits of the number (in binary), and add one!
 
 .. image:: images/section_2_twos_complement_p1.jpg
+
+----
+
+Two's Complement (cont'd)
+=========================
+
+* Simplifies addition operations
+* Unified Add/Sub 
+
+Example: Adding 2 and -1
+
+.. code::
+
+	Carry Row:  11 
+                    1111
+	          + 0010
+	            ----
+	            0001
+
 
 ----
 
