@@ -41,6 +41,14 @@
 %define S_IXGRP		00010 ; group has execute permission                     
 %define S_IRWXO		00007 ; others have read, write and execute permission   
 
+; Wait Options
+%define WSTOPPED	2 ; Stopped child process
+%define WEXITED		4 ; exited child process
+%define WCONTINUED	8 ; continued
+; Check status, don't block
+%define WNOWAIT		0x01000000
+
+
 ; Syscall numbers
 %define sys_exit		60
 %define sys_write   	1
@@ -53,3 +61,4 @@
 %define sys_msync		26
 %define sys_fsync		74
 %define sys_clone		56
+%define sys_wait4		61

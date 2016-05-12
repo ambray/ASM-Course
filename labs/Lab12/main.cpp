@@ -2,7 +2,6 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdint.h>
-#include <sched.h>
 
 extern "C" size_t first_func(int*, int*, int*);
 extern "C" size_t second_func(int*, int*, int*);
