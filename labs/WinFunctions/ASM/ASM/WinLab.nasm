@@ -4,7 +4,6 @@ global _first_func@8, _second_func@8, _third_func, _fourth_func@12
 
 section .text
 
-
 ;;;;;;;;;;;;;;;;;;;;;;;
 ;  Standard Call
 ; Using the following
