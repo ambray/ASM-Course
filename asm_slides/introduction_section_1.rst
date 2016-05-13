@@ -195,8 +195,10 @@ Byte Ordering
 =============
 
 * Determines the order bytes appear in memory
-* Big Endian puts the most significant value on the right (e.g., the memory address: 0x10203040 would appear as: 0x10 0x20 0x30 0x40)
-* Little Endian puts the most significant value on the left (e.g., the memory address: 0x10203040 would appear as: 0x40 0x30 0x20 0x10)
+* Big Endian stores the most significant (or biggest) value first 
+	+ the memory address: 0x10203040 would appear as: 0x10 0x20 0x30 0x40
+* Little Endian puts the least significant (or little) value first 
+	+ the memory address: 0x10203040 would appear as: 0x40 0x30 0x20 0x10
 
 ----
 
@@ -204,7 +206,7 @@ Byte Ordering
 =============
 
 * x86(_64) is little Endian
-* Again, Most significant byte (not bit) on the left
+* Again, least significant byte (not bit) appears first
 
 In memory, this address:
 

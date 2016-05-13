@@ -194,6 +194,17 @@ Lab 11
 
 Floating Point Operations 
 
+
+* Copy the Lab11 folder (and its contents)
+* Modify the \*.nasm file (Each function should have a comment block - lines starting with ';' containing instructions)
+* Build and run using the following commands:
+
+.. code:: bash
+
+    ~/Desktop/Lab11 $ cmake . && cmake --build .
+    ~/Desktop/Lab11 $ ./lab11
+
+
 ----
 
 Single Instruction, Multiple Data (SIMD)
@@ -268,8 +279,8 @@ The table below lists arithmetic instructions, both the scalar and vector variat
  
 ----
 
-SIMD Arithmetic
 
+SIMD Arithmetic
 ===============
 
 Example use:
@@ -279,7 +290,7 @@ Example use:
 	movups xmm0, [rdi]	; load first vector
 	movups xmm1, [rsi]	; load second vector
 	addps xmm0, xmm1 	; add the two
-	movups [rdx]		; store the result
+	movups [rdx], xmm0	; store the result
 
 ----
 
@@ -288,7 +299,7 @@ SIMD Comparisons
 
 Comparison Operations
 
-* cmp* operation is a bit strange at first
+* cmp\* operation is a bit strange at first
 	+ Compares a combination of registers/memory
 	+ Stores the result in the first operand
 	+ Third param indicates the type of compare to do (next slide)
@@ -393,6 +404,16 @@ Lab 12
 ======
 
 SIMD
+
+* Copy the Lab12 folder (and its contents)
+* Modify the \*.nasm file (Each function should have a comment block - lines starting with ';' containing instructions)
+* Build and run using the following commands:
+
+.. code:: bash
+
+    ~/Desktop/Lab12 $ cmake . && cmake --build .
+    ~/Desktop/Lab12 $ ./lab12
+
 
 ----
 

@@ -534,6 +534,9 @@ File Operations
 ----
 
 Process Information and Virtual Memory
+======================================
+
+----
 
 mmap - A different use
 ======================
@@ -924,6 +927,8 @@ Wait4
 * A pid of -1 lets us wait for ANY child process to end
 
 ----
+
+:class: split-table
 
 Wait4 Syscall
 =============
