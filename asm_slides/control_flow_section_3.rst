@@ -714,10 +714,9 @@ Microsoft x64 Calling Convention
 Microsoft x64 Calling Convention
 ================================
 
-Some additional reading on x64 calling conventions:
+Some additional reading on Microsoft's x64 calling convention:
 
 * https://blogs.msdn.microsoft.com/oldnewthing/20040114-00/?p=41053/
-* http://eli.thegreenplace.net/2011/09/06/stack-frame-layout-on-x86-64/
 
 ----
 
@@ -728,8 +727,18 @@ System V x64 Calling Convention
 * The first 6 arguments are passed via register (RDI, RSI, RCX, RDX, R8, and R9)
 * Floating point arguments go in SIMD registers (XMM0-7)
 * Additional arguments are pushed onto the stack
-* Extra stack space allocation is expected by functions you are calling (as with the Microsoft ABI) to allow register spillage
-* Caller is expected to clean up
+* Shadow space is not required, but stack must remain 16-byte aligned
+* Red zone optimization provides free stack space for leaf functions
+
+----
+
+Red Zone
+========
+
+* Allows use of the next 128 bytes below RSP without modifying stack pointer
+* Further function calls WILL clobber space
+    + Because of this, Red Zone use is most suitable for leaf functions
+    + Safe from interrupt handlers, etc.
 
 ----
 
@@ -747,9 +756,8 @@ Calling strlen
 
     call_strlen:
         mov rdi, mystring
-        sub rsp, 0x08      ; make room on the stack
         call strlen
-        add rsp, 0x08
+        ret
 
 ----
 
@@ -780,6 +788,15 @@ Register Preservation - x64
 * System V
     + Most registers are volatile (need to be preserved by caller if the values are to be retained)
     + Exception: RBP, RBX, and R12-15 are non-volatile (must be preserved)
+
+----
+
+Additional Links
+================
+
+More information on both x64 calling conventions:
+
+* http://eli.thegreenplace.net/2011/09/06/stack-frame-layout-on-x86-64/
 
 ----
 
