@@ -888,8 +888,8 @@ Exit
 
 ----
 
-A More Fun Exit!
-================
+A Better Exit Strategy
+======================
 
 * We can take the previous code a step further, and add another return address to the stack
 * If we put exit first, we will still be able to transfer control in the same fashion, but don't need to wrap out child function with additional calls
@@ -907,57 +907,44 @@ A More Fun Exit!
 
 ----
 
-Join
-====
-
-* In order to do meaningful work, we need a way to know when a thread is finished
-* Most threading APIs provide some mechanism to do this
-	+ pthread_join (from \*nix)
-	+ WaitFor(Single|Multiple)Object(s) (Windows)
-* As Linux threads are actually processes, we can utilize the waitpid syscall to wait for our thread to finish working
-
-----
-
-Wait4
-=====
-
-* Wait for the process to change state
-* Useful for waiting till thread exits
-* Ensures we let it finish up
-* A pid of -1 lets us wait for ANY child process to end
-
-----
-
-:class: split-table
-
-Wait4 Syscall
-=============
-
-+--------+------+------------------+-------------------+-----------+------------+
-|Syscall | RAX  |  RDI             |  RSI              | RDX       | R10        | 
-+--------+------+------------------+-------------------+-----------+------------+
-| Wait4  | 61   | pid              | int* (status)     | options   | rusage     | 
-+--------+------+------------------+-------------------+-----------+------------+
-
-----
-
-Wait4 Arguments
+Race Conditions
 ===============
 
-* Status returns status information if not NULL
-* rusage returns additional info (man getrusage)
- 	+ Only if not NULL
-* Options: What to wait for
+* Can occur when multiple threads access data at once, where the data is being modified
+* Can be rather difficult to spot at first
+* Multiple strategies exist to mitigate
+	+ Locks
+	+ Atomic Instructions
+* Can be difficult to get absolutely correct
+
+.. note::
+
+	Think in terms of a busy intersection with no stop sign.
+
+----
+
+What do Race Conditions look like?
+==================================
 
 .. code:: nasm
 
-	%define WSTOPPED	2 ; Stopped child process
-	%define WEXITED		4 ; exited child process
-	%define WCONTINUED	8 ; continued
-	; Check status, don't block
-	%define WNOWAIT		0x01000000
+	mov rax, [rdi] ; we load our data
+	; but by the time we reach here,
+	; any number of things could have
+	; happened to the value in the pointer
+	test rax, rax
 
 ----
+
+More Problems
+=============
+
+* Deadlocks
+* Starvation
+* Recursive locking
+* And much, much, more!
+
+---- 
 
 Making Atomic adds and Comparisons
 ==================================
@@ -979,12 +966,16 @@ Creating a Simple Spinlock
 
 	lock_func:
 		; ...
-		lock bts
+		lock bts [rdi], 0
+		jc .done
+		jmp lock_func
 		; ...
+	.done:
+		ret
 	
 	unlock_func:
 		; ...
-		lock btr
+		lock btr [rdi], 0
 		; ...
 
 ----
