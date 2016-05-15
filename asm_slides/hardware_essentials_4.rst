@@ -287,7 +287,9 @@ Virtual Memory
 Page Tables and Directories
 ===========================
 
-.. image:: ./images/page_tables.svg
+.. image:: ./images/page_tables2.png
+
+Image Credit: https://notes.shichao.io/utlk/ch2/
 
 ----
 
