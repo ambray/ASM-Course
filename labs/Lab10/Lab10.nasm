@@ -12,10 +12,7 @@ first_func:
 ;
 ;  BEGIN student code
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-rdtsc
-shl rdx, 32
-add rdx, rax
-mov rax,rdx
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;  END student code
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -32,19 +29,7 @@ second_func:
 ; 
 ;  BEGIN student code
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-push rbx
-push rdi
-mov rax, 0x00
-cpuid
-;int3
-pop rdi
-mov rax, rbx
-stosd
-mov rax, rdx
-stosd
-mov rax, rcx
-stosd
-pop rbx
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;  END student code
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
