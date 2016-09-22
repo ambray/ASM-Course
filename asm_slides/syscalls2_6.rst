@@ -26,7 +26,65 @@ Files and Operations
 * UNIX Model - Everything is a file!
 * File Descriptors
 	+ A bookkeeping mechanism to represent your access to a resource
-	+ Some typically reserved numbers: 1/2/3 (for std in/out/err)
+	+ Some reserved numbers: 1/2/3 (for std in/out/err)
+
+----
+
+What are file descriptors?
+==========================
+
+* Entries into a table
+* One exists for each process
+* Each entry in the process table points to a System File Table entry
+
+----
+
+File Pointer
+============
+
+* A pointer that keeps track of your current location in a file
+* Maintained per system file table entry
+* Calls to "read", "write", or "lseek" (among others) modify
+
+----
+
+File Pointer Example
+====================
+
+Assume the file "tmp.txt" contains: "abcdefghij"
+
+.. code:: c
+
+    char buf[10] = {0};
+    // Assuming no failures, fd
+    // now contains a file descriptor
+	int fd = open("tmp.txt", O_RDONLY); 
+    if(-1 == fd) {
+       return -1; // the open failed!
+    }
+     
+    // At this point, the file pointer is at the start.
+
+    read(fd, buf, 5);
+    // Where does it point now?
+
+----
+
+File Pointer Example
+====================
+
+Assuming no errors and all 5 bytes were read:
+
+* buf now contains: "abcde"
+* The file pointer is now at 'f'
+
+If we ready again:
+
+.. code:: c
+
+	read(fd, buf, 5);
+	// What does buf contain? 
+	// Where is the file pointer now?
 
 ----
 
@@ -185,7 +243,7 @@ Mode
 Lseek
 =====
 
-* Lets you move to an offset within a file
+* Lets you move to an offset within a file (moves the file pointer)
 * Returns the distance (in bytes) your current offset is from the file's beginning
 
 ----
@@ -218,6 +276,11 @@ Values for origin (indicating where to move from):
 
 Lab - File I/O
 ==============
+
+Create system call wrappers to:
+  + Open existing files
+  + Create new files
+  + Find the file size via lseek
 
 ----
 
