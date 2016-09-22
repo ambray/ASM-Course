@@ -1,0 +1,3 @@
+************* Directions ***************
+
+* If it is absent, put a copy of nasm.exe in the Solution directory (the same directory WinAsm.sln appears in)
