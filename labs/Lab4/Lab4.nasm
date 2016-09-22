@@ -34,7 +34,8 @@ second_func
     mov r9, 6
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;  For this task, you must allocate
-;  manage your registers by saving them
+;  space to 
+;  manage your registers and save them
 ;  to the stack as needed. Divide the
 ;  number stored where rcx points by 10,
 ;  and place the value back at that address.

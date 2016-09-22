@@ -572,7 +572,7 @@ Basic Use
 .. code:: nasm
 
 	mov rax, 0x01      ; immediate - rax is now 1
-	mov rax, rcx       ; register - rax now has a copy of ecx
+	mov rax, rcx       ; register - rax now has a copy of rcx
 	mov rax, [rbx]     ; memory - rbx is treated as a pointer
     mov rax, qword [rbx + 8] ; copying a quad word (8 bytes)
 

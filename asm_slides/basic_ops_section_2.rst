@@ -104,8 +104,8 @@ Basic Use
 	; clearing the register where the
 	; high bits would be stored, we're only using what's in rax!
 	mov rdx, 0 
-	mov rax, 2
-	mov rcx, 10
+	mov rax, 10
+	mov rcx, 2
 	div rcx    ; rax now contains 5
 
 ----

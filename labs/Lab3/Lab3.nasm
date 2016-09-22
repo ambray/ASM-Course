@@ -55,7 +55,7 @@ fourth_func:
 ;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;  For this lab, you will
 ;  need to divide by 2,
-;  and return the dividend.
+;  and return the quotient.
 ;  hint: make sure you clear
 ;  the high bits!
 ;

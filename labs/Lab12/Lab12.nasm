@@ -2,7 +2,8 @@ bits 64
 
 global first_func, second_func, third_func
 
-
+_firstdata dd 0x00
+_seconddata dd 0x00
 
 first_func:
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -18,6 +19,10 @@ first_func:
 ; 
 ;  BEGIN student code
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+movups xmm0, [rdi]
+movups xmm1, [rsi]
+addps xmm0, xmm1
+movups [rdx], xmm0
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;  END student code
@@ -38,7 +43,10 @@ second_func:
 ; 
 ;  BEGIN student code
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
+movups xmm0, [rdi]
+movups xmm1, [rsi]
+cmpps xmm0, xmm1, 0
+movups [rdx], xmm0
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;  END student code
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -53,7 +61,22 @@ third_func:
 ;
 ;  BEGIN student code
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
+mov rax, _firstdata
+mov rcx, _seconddata
+mov [rax], edi
+mov [rcx], esi
+movss xmm0, dword [rax]
+movss xmm1, dword [rcx]
+cmpss xmm0, xmm1, 2
+jle .lesseq
+xor rcx, rcx
+mov ecx, dword [rax]
+mov rax, rcx
+jmp .myend
+.lesseq:
+xor rax, rax
+mov eax, dword[rcx]
+.myend:
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;  END student code
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

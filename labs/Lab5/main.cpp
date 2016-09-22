@@ -37,7 +37,7 @@ int main(int argc, char** argv)
     memset(second_outbuf, 0, VALUE_ALLOC_SIZE);
 
     printf("Preparing to run first function (using and)\n");
-    EQ((size_t)128, first_func());
+    EQ((size_t)1, first_func());
 
     printf("Preparing to run second function (using or)\n");
     EQ((size_t)3740139503, second_func());

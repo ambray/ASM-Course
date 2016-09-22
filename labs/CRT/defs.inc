@@ -5,6 +5,8 @@
 %define PROT_EXEC	0x4	 ; Page can be executed.  
 %define PROT_NONE	0x0	 ; Page can not be accessed.  
 
+%define stdout 1
+
 ; File mapping types
 %define MAP_ANONYMOUS	0x20  ; Don't use a file.  
 %define MAP_PRIVATE		0x02  ; Changes are private. 

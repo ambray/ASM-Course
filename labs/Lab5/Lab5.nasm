@@ -33,9 +33,12 @@ second_func:
     mov rax, 0xdeadbeef
     mov rdx, 0xc0ffee
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;  Check to see what bits are
-;  set in both rdx and rax. Set
-;  rax equal to the result.
+;  Find the union of bits that are
+;  set in both rdx and rax. 
+; That is to say, bits that are set in
+;  either register should be set in the
+;  result.
+;  Set rax equal to the result.
 ;
 ;  BEGIN student code
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

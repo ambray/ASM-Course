@@ -115,7 +115,9 @@ sixth_func:
 ;
 ;  BEGIN student code
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
+xchg rax, [rcx]
+xchg rax, [rdx]
+xchg rax, [rcx]
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;  END student code
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

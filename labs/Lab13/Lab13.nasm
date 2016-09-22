@@ -1,14 +1,29 @@
 bits 64
 
 ; LABS
-global ex_strlen, ex_memcpy, ex_memset, ex_memcmp, ex_memchr, ex_strchr, ex_strcmp, ex_strcpy, ex_atoi,
-
+global ex_strlen, ex_memcpy, ex_memset, ex_memcmp, ex_memchr, ex_strchr, ex_strcmp, ex_strcpy, ex_atoi
+global ex_strstr, find_largest, walk_list
 
 ; BONUS LABS
-global ex_strstr, ex_isort, ex_qsort
+global ex_isort, ex_qsort
+
+
+find_largest:
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;  This function takes two arguments:
+;  
+;  BEGIN student code
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;  END student code
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+    ret
 
 ex_strlen:
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;  size_t strlen(char*);  
+;
 ;  BEGIN student code
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -19,6 +34,8 @@ ex_strlen:
 
 ex_memcpy:
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;  void memcpy(void* dst, void* src);
+;
 ;  BEGIN student code
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -30,6 +47,8 @@ ex_memcpy:
 
 ex_memset:
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;	void memset(void* buf, unsigned char value, size_t length);
+;
 ;  BEGIN student code
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -40,6 +59,8 @@ ex_memset:
 
 ex_memchr:
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;	void* memchr(void* haystack, unsigned char needle, size_t length);
+;
 ;  BEGIN student code
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -50,6 +71,8 @@ ex_memchr:
 
 ex_memcmp:
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;	int memcmp(void*, void*, size_t length);
+;
 ;  BEGIN student code
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
     mov rcx, rdx
@@ -101,6 +124,33 @@ ex_atoi:
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
     ret
 
+
+ex_strstr:
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;  BEGIN student code
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;  END student code
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+    ret
+
+
+struc Node
+	.Next	resq	1
+	.Data	resq	1
+endstruc
+
+ walk_list:
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;  BEGIN student code
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;  END student code
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+	ret
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;  |-- |      |--- |    |\     |    |   |   |-------
 ;  |   |      |    |    | \    |    |   |   |
@@ -117,17 +167,6 @@ ex_atoi:
 ;        |_______    |       |   |_________|   ________|
 ;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-ex_strstr:
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;  -BONUS-
-;  BEGIN student code
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;  END student code
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-    ret
 
 
 ex_isort:
