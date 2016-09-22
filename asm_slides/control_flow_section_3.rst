@@ -545,15 +545,11 @@ Standard call in action - Stack Cleanup:
         ; do stuff
         ret 8   ; we've cleaned up 8 bytes
 
-Optionally, we can clean up like this:
-
-.. code:: nasm
-
-    _myfunc@4:
+    ; Equiv: int __stdcall myfunc2(int a);
+    _myfunc2@4:
         ; do stuff
-        add esp, 4
-        ret
-
+        mov eax, 1
+        ret 4 ; cleaned up four bytes
 ----
 
 stdcall - cont'd
