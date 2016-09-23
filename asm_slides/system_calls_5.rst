@@ -283,6 +283,7 @@ Allocating Memory
 =================
 
 * The Heap - no longer just a call to malloc
+	+ In this case, malloc does not exist!
 * How do we add memory to our process?
 
 ----
@@ -378,6 +379,23 @@ munmap
 +------+-----------------+-------------------+
 | 11   | addr            | length            |
 +------+-----------------+-------------------+
+
+----
+
+More About Memory Mapping
+=========================
+
+* Two types of allocation:
+	+ File-backed
+	+ Anonymous
+* Both create an addessable buffer in your process space (assuming success)
+
+----
+
+Memory Mapping - Cont'd
+=======================
+
+.. image:: ./images/section_5_mem_map.png
 
 ----
 
@@ -528,3 +546,17 @@ Additional Steps to Consider
 Lab - Creating an Allocator
 ===========================
 
+Implement Dynamic Allocation
+
+Required Objectives:
+--------------------
+
+* Implement "allocate" so that it can:
+	+ Check a list of "free" chunks for an already-allocated block
+	+ If a suitable block exists, remove it from the list and return it for use
+	+ If no suitable block exists, use mmap to get one
+* Implement "deallocate" so that it can:
+	+ Return "free" block to the free list
+	+ (optionally) De-allocate blocks if the free list is too large
+* Additionally:
+	+ You will need to keep track of how big the allocated block is somehow
