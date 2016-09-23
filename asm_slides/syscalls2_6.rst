@@ -393,7 +393,7 @@ Execute and redirect.
 Required Objectives:
 --------------------
 
-* Execute /bin/bash ls -al
+* Execute ls -al
 * Redirect its output to a text file using dup2
 
 ----
@@ -635,6 +635,8 @@ Waiting till done
 	+ Syscall takes no arguments
 
 ----
+
+:class: split-table
 
 Pause
 =====
