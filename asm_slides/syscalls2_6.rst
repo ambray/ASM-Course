@@ -248,6 +248,8 @@ Lseek
 
 ----
 
+:class: split-table
+
 Lseek
 =====
 
@@ -274,13 +276,24 @@ Values for origin (indicating where to move from):
 
 ----
 
+Stat
+====
+
+* The stat system call can also be used to retrieve file size
+* Requires an additional structure definition
+* Take a look at "man 2 stat" for further information
+
+----
+
 Lab - File I/O
 ==============
 
 Create system call wrappers to:
   + Open existing files
   + Create new files
-  + Find the file size via lseek
+  + Read from and write to files
+  + Move the location of the file pointer
+  + Find the file size via lseek or stat
 
 ----
 
@@ -292,6 +305,8 @@ Directories
 
 ----
 
+:class: split-table
+
 Getdents
 ========
 
@@ -302,6 +317,27 @@ Getdents
 +----------+------+--------------+-------------------+-----------+------------+------------+--------+ 
 
 ----
+
+Lab - Enumerating Directory Entries
+===================================
+
+List the contents of a directory
+
+Required Objectives:
+--------------------
+
+* List the contents of a directory
+* Print them to screen
+
+Optional:
+---------
+
+* Recursively list directory
+* May need to use stat to find additional directories
+
+----
+
+:class: split-table
 
 Misc Syscalls
 =============
@@ -316,6 +352,49 @@ Misc Syscalls
 +----------+------+--------------+-------------------+--------------+------------+------------+--------+
 | execve   | 59   | char*        |  char* argv[]     | char* envp[] |            |            |        | 
 +----------+------+--------------+-------------------+--------------+------------+------------+--------+ 
+
+----
+
+:class: split-table
+
+Misc Syscalls
+=============
+
+* Dup2 - replace the file table entry of a file descriptor with something else
+* First arg is the file descriptor to replace with
+* Second is the target to be replaced
+
++----------+------+--------------+-------------------+--------------+------------+------------+--------+
+|Syscall   | RAX  |  RDI         |  RSI              | RDX          | R10        | R8         | R9     |
++----------+------+--------------+-------------------+--------------+------------+------------+--------+
+| dup2     | 33   | int fd       |  int fd           |              |            |            |        | 
++----------+------+--------------+-------------------+--------------+------------+------------+--------+ 
+
+----
+
+Misc Syscalls
+=============
+
+* Dup2 example (redirect stdout to a file):
+
+.. code:: c
+
+	int fd = open("tmp.txt", O_WRONLY);
+	dup2(fd, STDOUT_FILENO);
+	printf("Now this gets written to tmp.txt!\n");
+
+----
+
+Lab - Additional Syscalls
+=========================
+
+Execute and redirect.
+
+Required Objectives:
+--------------------
+
+* Execute /bin/bash ls -al
+* Redirect its output to a text file using dup2
 
 ----
 
