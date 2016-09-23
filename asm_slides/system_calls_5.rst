@@ -122,8 +122,29 @@ Objectives
 System Calls
 ============
 
-* What they are
-* How they work
+* Mechanism by which we task the operating system (kernel) to do work
+* Implemented by a number of mechanisms, depending on OS/architecture
+
+----
+
+System Calls - Cont'd
+=====================
+
+* Many operations require additional privilege to perform
+	+ File I/O
+	+ Memory allocation
+	+ Process creation
+	+ Device I/O
+	+ ...
+
+* This requires kernel intervention to occur
+
+----
+
+System Calls - Cont'd
+=====================
+
+.. image:: ./images/section_5_syscall.png
 
 ----
 
@@ -231,6 +252,16 @@ Lab 14
 ======
 
 Finally, time for "Hello, World!"
+
+Required Objectives:
+--------------------
+
+Populate _start, and perform the following actions:
+
+* Wrap sys_write
+* Wrap sys_exit
+* Print the string "Hello, World!" to STDOUT
+* Exit without seg fault
 
 ----
 
