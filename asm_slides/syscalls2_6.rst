@@ -383,6 +383,44 @@ Misc Syscalls
 	dup2(fd, STDOUT_FILENO);
 	printf("Now this gets written to tmp.txt!\n");
 
+
+----
+
+Fork
+====
+
+* Creates a child process
+* Execution begins at the same point as the parent
+* Return value for parent is the PID of the child
+* Return value for child is 0
+
++----------+------+--------------+-------------------+--------------+------------+------------+--------+
+|Syscall   | RAX  |  RDI         |  RSI              | RDX          | R10        | R8         | R9     |
++----------+------+--------------+-------------------+--------------+------------+------------+--------+
+| fork     | 57   |              |                   |              |            |            |        | 
++----------+------+--------------+-------------------+--------------+------------+------------+--------+ 
+
+----
+
+Fork - Cont'd
+=============
+
+* Inherits copy\* of parent's memory space
+* Also inherits copy of existing file descriptors
+	+ New descriptors will be unique entries
+
+\* On most modern systems, the copy is actually a copy-on-write
+
+----
+
+.. code:: c
+
+	if(0 == (pid = fork())) {
+		printf("We are in the child process!\n");
+	} else {
+		printf("We are in the parent process!\n");
+	}
+
 ----
 
 Lab - Additional Syscalls
@@ -393,7 +431,9 @@ Execute and redirect.
 Required Objectives:
 --------------------
 
-* Execute ls -al
+* Fork your process, to create a child process
+* Have the parent process wait till the child is finished
+* Execute ls -al in the child process
 * Redirect its output to a text file using dup2
 
 ----
