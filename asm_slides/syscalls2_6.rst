@@ -413,6 +413,9 @@ Fork - Cont'd
 
 ----
 
+Fork - Cont'd
+=============
+
 .. code:: c
 
 	if(0 == (pid = fork())) {
@@ -435,6 +438,11 @@ Required Objectives:
 * Have the parent process wait till the child is finished
 * Execute ls -al in the child process
 * Redirect its output to a text file using dup2
+
+Optional:
+---------
+
+* 
 
 ----
 

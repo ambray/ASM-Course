@@ -4,9 +4,8 @@ bits 64
 %include "more_defs.inc"
 
 
-global _start, prints, lexit, mmap, munmap, lmalloc, free, check_free
-global open, lseek, read, write, close, getdents, execve, strlen
-extern main
+global _start ; Expose _start for linking
+extern main   ; Implemented in main.c
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
