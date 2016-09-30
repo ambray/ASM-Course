@@ -442,7 +442,7 @@ Required Objectives:
 Optional:
 ---------
 
-* 
+* Connect to a socket (or bind), redirect I/O
 
 ----
 
