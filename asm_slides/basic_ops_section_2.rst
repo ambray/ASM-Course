@@ -461,7 +461,7 @@ And Table
 Or Table
 ========
 
-.. image:: images/section_2_bitops_or.jpg
+.. image:: images/section_2_bitops_or.png
 
 ----
 
