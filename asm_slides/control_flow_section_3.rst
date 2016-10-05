@@ -550,6 +550,7 @@ Standard call in action - Stack Cleanup:
         ; do stuff
         mov eax, 1
         ret 4 ; cleaned up four bytes
+
 ----
 
 stdcall - cont'd
@@ -839,3 +840,4 @@ Section Review
 * string instructions
     + prefix
 * Functions and calling conventions
+
