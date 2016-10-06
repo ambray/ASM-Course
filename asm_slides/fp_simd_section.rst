@@ -218,7 +218,8 @@ What is SIMD?
 * Set of specialized hardware and instructions
 * SSE (Streaming SIMD Extensions) is part of this (among others)
 * Provide a mechanism for operating on "vectors" of data at a time
-* Can perform a variety of operations 128 bits at a time
+* Provides a set of 128-bit registers
+* Each can be packed with 4 32-bit "scalar" values
 
 ----
 
@@ -227,6 +228,28 @@ SIMD Hardware
 
 * x86: 8 SSE registers available, from XMM0 - XMM7
 * x64: provides 16 SSE registers, from XMM0 - XMM15
+
+----
+
+Why is SIMD Useful?
+===================
+
+* Converts a set of operations (ex: 4 multiplications) in a single instruction
+
+Example: Multiplying two vectors of values - 
+
+.. image:: ./images/simd_ex.bmp
+
+image credit: http://neilkemp.us/src/sse_tutorial/sse_tutorial.html
+
+----
+
+SIMD Data Movement - Aligned vs Unaligned
+=========================================
+
+* Some SIMD instructions differentiate between aligned and unaligned data
+* In order to use "aligned" instructions, must guarantee 16 byte alignment
+* 16 byte is important in this case, because SIMD registers are 16 bytes (128 bits) wide
 
 ----
 
@@ -388,6 +411,48 @@ SIMD Bitwise Operations
 
 ----
 
+Shuffling Data
+==============
+
+* Allows us to rearrange the scalar values within the vector
+* Takes three arguments:
+	+ Source Register
+	+ Destination Register
+	+ A single immediate byte value (imm8) to control how the shuffle takes place
+* Will often be used with the same register as source/destination (to reorder)
+
+.. code:: nasm
+
+	shufps xmm0, xmm0, 0x10
+
+----
+
+Shuffling Data (cont'd)
+=======================
+
+* The single byte immediate is broken into 4, 2-bit blocks representing scalar0 - 3
+* Each set of bits controls what block from the "source" register gets stored in the "destination"
+
+----
+
+Control Bits
+============
+
+* Bits 1-2: Indicate which "source" block will replace the value in block (or scalar) 0 of the destination register (e.g., 01 would cause the contents of block 1 to be stored in block 0)
+* Bits 2-3: Indicate which "source" block will be written to block 1 of the "destination"
+* Bits 4-5: Indicate which "source" block will replace the contents of block 2 in the "destination"
+* Bits 6-7: Indicate which "source" block will replace the contents of block 3 in the "destination"
+
+----
+
+Shuffle - Example
+=================
+
+.. image:: ./images/sse04.jpg
+
+Image credit: http://www.tommesani.com/index.php/component/content/article/2-simd/62-sse-shuffle.html
+
+----
 
 GDB
 ===
