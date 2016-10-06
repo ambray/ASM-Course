@@ -32,7 +32,13 @@ first_func:
 ; 
 ;  BEGIN student code
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
+mov rax, _firstfloat
+fld dword[rax]
+mov rax, _secondfloat
+fld dword[rax]
+fadd
+mov rax, _out1
+fstp dword[rax]
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;  END student code
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -51,7 +57,12 @@ second_func:
 ; 
 ;  BEGIN student code
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
+mov rax, _firstfloat
+fld dword[rax]
+fild rdi
+fiadd
+mov rax, _out2
+fstp qword[rax]
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;  END student code
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
