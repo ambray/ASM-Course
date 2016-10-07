@@ -320,7 +320,7 @@ Feature Support
 ===============
 
 * The CPUID instruction can provide information about the current CPU
-	+ Vender string
+	+ Vendor string
 	+ Model number
 	+ Size of internal cache
 	+ Various features supported
