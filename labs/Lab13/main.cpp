@@ -128,7 +128,7 @@ void find_largest_test()
         for(int j = 0; j < count; ++j)
             tmp[j] = rand();
         res = find_largest(tmp, count);
-        IS_LARGEST(res, nums, count);
+        IS_LARGEST(res, tmp, count);
         free(tmp);
     }
 }
