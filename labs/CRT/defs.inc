@@ -21,9 +21,9 @@
 %define O_RDONLY	   00
 %define O_WRONLY	   01
 %define O_RDWR		   02
-%define O_CREAT	   0100	; Create the file 
-%define O_TRUNC	  01000	; Truncate (if exists) 
-%define O_APPEND  02000 ; Append 
+%define O_CREAT	   0o100	; Create the file 
+%define O_TRUNC	  0o1000	; Truncate (if exists) 
+%define O_APPEND  0o2000 ; Append 
 
 ; Clone Flags
 %define CLONE_VM      0x00000100 ; VM shared between procs.  
