@@ -38,7 +38,7 @@ ex_strlen:
 
 ex_memcpy:
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;  void memcpy(void* dst, void* src);
+;  void memcpy(void* dst, void* src, size_t n);
 ;
 ;  BEGIN student code
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
