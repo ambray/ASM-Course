@@ -26,7 +26,7 @@ Files and Operations
 * UNIX Model - Everything is a file!
 * File Descriptors
 	+ A bookkeeping mechanism to represent your access to a resource
-	+ Some reserved numbers: 1/2/3 (for std in/out/err)
+	+ Some reserved numbers: 0/1/2 (for std in/out/err)
 
 ----
 

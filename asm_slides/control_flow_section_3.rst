@@ -721,7 +721,7 @@ System V x64 Calling Convention
 ===============================
 
 * Similar to the Microsoft calling convention, but more values are passed via registers
-* The first 6 arguments are passed via register (RDI, RSI, RCX, RDX, R8, and R9)
+* The first 6 arguments are passed via register (RDI, RSI, RDX, RCX, R8, and R9)
 * Floating point arguments go in SIMD registers (XMM0-7)
 * Additional arguments are pushed onto the stack
 * Shadow space is not required, but stack must remain 16-byte aligned
