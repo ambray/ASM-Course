@@ -32,16 +32,16 @@
 %define CLONE_SIGHAND 0x00000800 ; signal handlers shared.  
 %define CLONE_THREAD  0x00010000 ; add to same thread group.  
 
-; File Permissions
-%define S_IRWXU		00700 ; user  (file  owner)  has read, write and execute
-%define S_IRUSR 	00400 ; user has read permission                         
-%define S_IWUSR 	00200 ; user has write permission                        
-%define S_IXUSR     00100 ; user has execute permission                      
-%define S_IRWXG     00070 ; group has read, write and execute permission     
-%define S_IRGRP		00040 ; group has read permission                        
-%define S_IWGRP		00020 ; group has write permission                       
-%define S_IXGRP		00010 ; group has execute permission                     
-%define S_IRWXO		00007 ; others have read, write and execute permission   
+; File Permissions... in Octal
+%define S_IRWXU		0o0700 ; user  (file  owner)  has read, write and execute
+%define S_IRUSR 	0o0400 ; user has read permission                         
+%define S_IWUSR 	0o0200 ; user has write permission                        
+%define S_IXUSR     	0o0100 ; user has execute permission                      
+%define S_IRWXG     	0o0070 ; group has read, write and execute permission     
+%define S_IRGRP		0o0040 ; group has read permission                        
+%define S_IWGRP		0o0020 ; group has write permission                       
+%define S_IXGRP		0o0010 ; group has execute permission                     
+%define S_IRWXO		0o0007 ; others have read, write and execute permission   
 
 ; Wait Options
 %define WSTOPPED	2 ; Stopped child process
