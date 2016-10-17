@@ -215,7 +215,7 @@ void test_call_function()
 			      "Expected: " << (glbl | (1 << 4)) << std::endl;
 		return;
 	}
-	compare_vals(v, output);
+	compare_vals(glbl, output);
 }
 
 int main(int argc, char** argv, char** envp)
