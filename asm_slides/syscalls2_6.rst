@@ -386,6 +386,8 @@ Misc Syscalls
 
 ----
 
+:class: split-table
+
 Fork
 ====
 
@@ -808,8 +810,7 @@ Creating a Simple Spinlock
 	lock_func:
 		; ...
 		lock bts [rdi], 0
-		jc .done
-		jmp lock_func
+		jc lock_func
 		; ...
 	.done:
 		ret

@@ -68,24 +68,22 @@ _third_func:
 ;
 ;  BEGIN student code
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-    cmp rdi, 0
-    jz .done_zero
-    cmp rdi, 1
-    jz .done_one 
-    push rdi
+    cmp rdi, 0          ; base case: value is 0
+    jz .done_base   
+    cmp rdi, 1          ; base case 2: value is 1
+    jz .done_base 
+    push rdi            ; Save the value we were called with
     dec rdi
-    call _third_func
+    call _third_func    ; Call ourselves with n-1
     pop rdi
-    push rax
-    sub rdi, 2
-    call _third_func
-    pop rdi
-    add rdi, rax
-    mov rax, rdi
+    push rax            ; Save the result of third_func(n-1)
+    sub rdi, 2      
+    call _third_func    ; Call ourselves with n-2
+    pop rdi             ; restore the result of third_func(n-1)
+    add rdi, rax        ; Add both together
+    mov rax, rdi        ; Set to the return value
     jmp .done
-.done_zero:
-    xor rax, rax
-.done_one:
+.done_base:
     mov rax, rdi
 .done:
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
